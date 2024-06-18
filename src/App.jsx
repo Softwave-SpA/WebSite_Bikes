@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HeroTemplates from './views/hero_templates';
 import NavBar from './components/navbar';
-import Carrusel from './components/carrusel';
+import Footer from './components/footer';
+import Products from './views/products';
+
 
 function App() {
   return (
@@ -10,9 +12,11 @@ function App() {
         <NavBar/>
         <div className="App">
           <Routes>
-            <Route path="/" element={< HeroTemplates />} />
+            <Route path="/home" element={< HeroTemplates />} />
+            <Route path="/products" element={< Products /> } />
           </Routes>
         </div>
+        <Footer />
       </div>
     </Router>
   )

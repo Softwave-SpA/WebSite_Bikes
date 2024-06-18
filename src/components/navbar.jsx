@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Box,
   Flex,
@@ -17,14 +15,19 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+import { Link } from 'react-router-dom';
 
-const Links = ['Dashboard', 'Projects', 'Team']
-
+const Links = [
+  { name: 'Inicio', path: '/home' },
+  { name: 'Servicios', path: '/servicios' },
+  { name: 'Productos', path: '/productos' },
+  { name: 'Contacto', path: '/contacto' },
+];
 // eslint-disable-next-line react/prop-types
-const NavLink = ({ children }) => {
+const NavLink = ({ children, to }) => {
   return (
     <Box
-      as="a"
+      as={Link}
       px={2}
       py={1}
       rounded={'md'}
@@ -32,7 +35,7 @@ const NavLink = ({ children }) => {
         textDecoration: 'none',
         bg: useColorModeValue('gray.200', 'gray.700'),
       }}
-      href={'#'}>
+      to={to}>
       {children}
     </Box>
   )
@@ -56,7 +59,9 @@ export default function NavBar() {
             <Box>Logo</Box>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.name} to={link.path}>
+                  {link.name}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -89,7 +94,9 @@ export default function NavBar() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.name} to={link.path}>
+                  {link.name}
+                </NavLink>
               ))}
             </Stack>
           </Box>
