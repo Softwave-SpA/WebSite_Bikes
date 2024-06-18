@@ -8,7 +8,6 @@ import {
   Text,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import Carrusel from '../components/carrusel.jsx'
 
 export default function HeroTemplates() {
   return (
@@ -53,9 +52,6 @@ export default function HeroTemplates() {
             <Button rounded={'full'}>How It Works</Button>
           </Stack>
         </Stack>
-      </Flex>
-      <Flex flex={1}>
-        <Carrusel />
       </Flex>
     </Stack>
   )
