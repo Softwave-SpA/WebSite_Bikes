@@ -1,13 +1,6 @@
-
 import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
   Flex,
   useColorModeValue,
-  Text,
-  Box,
 } from '@chakra-ui/react';
 
 import CaptionCarousel from '../components/carrusel.jsx';
