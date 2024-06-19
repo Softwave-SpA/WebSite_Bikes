@@ -18,7 +18,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom';
 
 const Links = [
-  { name: 'Inicio', path: '/home' },
+  { name: 'Inicio', path: '/' },
   { name: 'Servicios', path: '/servicios' },
   { name: 'Productos', path: '/products' },
   { name: 'Contacto', path: '/contacto' },
