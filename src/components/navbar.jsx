@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom';
 const Links = [
   { name: 'Inicio', path: '/home' },
   { name: 'Servicios', path: '/servicios' },
-  { name: 'Productos', path: '/productos' },
+  { name: 'Productos', path: '/products' },
   { name: 'Contacto', path: '/contacto' },
 ];
 // eslint-disable-next-line react/prop-types

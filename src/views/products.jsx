@@ -9,7 +9,7 @@ import {
     Box,
   } from '@chakra-ui/react';
   
-  import Product from '../components/cards.jsx';
+  import Product from '../components/product.jsx';
   
   function Products() {
     return (
