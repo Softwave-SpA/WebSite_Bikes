@@ -22,7 +22,7 @@ import letraImage from '../assets/SprintPits_Letra.png'
 
 const Links = [
   { name: 'Inicio', path: '/' },
-  { name: 'Servicios', path: '/servicios' },
+  { name: 'Servicios', path: '/services' },
   { name: 'Productos', path: '/products' },
   { name: 'Contacto', path: '/contacto' },
 ];

@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HeroTemplates from './views/hero_templates';
+import Products from './views/products';
+import ProductDetails from './views/product_details';
+import Services from './views/services';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
-import Products from './views/products';
-import ProductDetails from './views/product_details'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={< HeroTemplates />} />
             <Route path="/products" element={< Products /> } />
             <Route path="/products/:id" element={< ProductDetails />} />
+            <Route path="/services" element={< Services /> } />
           </Routes>
         </div>
         <Footer />

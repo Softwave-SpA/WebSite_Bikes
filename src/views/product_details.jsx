@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { MdLocalShipping } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
-import products from '../assets/ej_products'
+import products from '../assets/ej_products';
 
 export default function ProductDetails() {
   const { id } = useParams();
