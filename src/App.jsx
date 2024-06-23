@@ -3,7 +3,7 @@ import HeroTemplates from './views/hero_templates';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
 import Products from './views/products';
-
+import ProductDetails from './views/product_details'
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={< HeroTemplates />} />
             <Route path="/products" element={< Products /> } />
+            <Route path="/products/:id" element={< ProductDetails />} />
           </Routes>
         </div>
         <Footer />

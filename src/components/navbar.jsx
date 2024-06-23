@@ -35,6 +35,8 @@ const NavLink = ({ children, to }) => {
         textDecoration: 'none',
         bg: useColorModeValue('gray.200', 'gray.700'),
       }}
+      fontFamily="'arial', sans-serif"
+      fontWeight="bold"
       to={to}>
       {children}
     </Box>
@@ -46,7 +48,7 @@ export default function NavBar() {
 
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Box bg={useColorModeValue('gray.400', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
