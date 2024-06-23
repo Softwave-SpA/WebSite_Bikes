@@ -1,4 +1,3 @@
-// src/pages/Products.jsx
 import {
   Flex,
   useColorModeValue,
@@ -14,11 +13,13 @@ function Products() {
       align={'center'}
       justify={'center'}
       direction="column"
-      bg={useColorModeValue('gray.300', 'gray.700')}>
+      bg={useColorModeValue('#0000', 'gray.700')}
+      py={5}>
       <Flex
         wrap="wrap"
         justify="center"
-        maxW="1200px">
+        maxW="1200px"
+        style={{ gap: '20px' }}>
         {products.map((product) => (
           <Card
             key={product.id}
@@ -29,6 +30,7 @@ function Products() {
             oldPrice={product.oldPrice}
             productId={product.id}
           />
+          
         ))}
       </Flex>
     </Flex>
