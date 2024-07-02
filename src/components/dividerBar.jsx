@@ -1,13 +1,12 @@
 import React from 'react';
 import { Stack, Heading, Box, useColorModeValue } from '@chakra-ui/react';
 
-const Divider = ({ title }) => {
+const DividerBar = ({ title }) => {
   return (
-    <Stack spacing={4} align="center">
+    <Stack py={4} spacing={0} align="center">
       <Heading 
         as="h1" 
-        fontSize="4xl" 
-        mt='4'
+        fontSize="4xl"
         color={useColorModeValue('#2D284A', 'gray.800')}>
         {title}
       </Heading>
@@ -24,4 +23,4 @@ const Divider = ({ title }) => {
   );
 };
 
-export default Divider;
+export default DividerBar;

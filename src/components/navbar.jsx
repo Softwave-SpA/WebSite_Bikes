@@ -24,9 +24,9 @@ const Links = [
   { name: 'Inicio', path: '/' },
   { name: 'Servicios', path: '/services' },
   { name: 'Productos', path: '/products' },
-  { name: 'Contacto', path: '/contacto' },
+  { name: 'Contacto', path: '/contact' },
 ];
-// eslint-disable-next-line react/prop-types
+
 const NavLink = ({ children, to }) => {
   return (
     <Box
@@ -54,6 +54,17 @@ export default function NavBar() {
     <>
       <Box bg={useColorModeValue('#2D284A', '#BEBDC0')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+          <HStack spacing={8} alignItems={'center'}>
+            <Avatar boxSize="60px" src={logoImage} />
+            <Image src={letraImage} alt="Logo" width="160px" height="auto" objectFit="contain" />
+            <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
+              {Links.map((link) => (
+                <NavLink key={link.name} to={link.path}>
+                  {link.name}
+                </NavLink>
+              ))}
+            </HStack>
+          </HStack>
           <IconButton
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -61,23 +72,11 @@ export default function NavBar() {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'}>
-            <Avatar boxSize="60px" src={logoImage} />
-            <Image src={letraImage} alt="Logo" width="160px" height="auto" objectFit="contain"/>
-            <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-              {Links.map((link) => (
-                <NavLink key={link.name} to={link.path}>
-                  {link.name} 
-                </NavLink>
-              ))}
-            </HStack>
-          </HStack>
-          
         </Flex>
 
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
+            <Stack py={4} as={'nav'} spacing={3}>
               {Links.map((link) => (
                 <NavLink key={link.name} to={link.path} >
                   {link.name}

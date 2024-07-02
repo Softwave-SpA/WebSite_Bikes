@@ -5,7 +5,7 @@ import {
 
 import Card from '../components/card';
 import products from '../assets/ej_products';
-import Divider from '../components/divider';
+import DividerBar from '../components/dividerBar';
 
 function Products() {
   return (
@@ -15,8 +15,8 @@ function Products() {
       justify={'center'}
       direction="column"
       bg={useColorModeValue('#0000', 'gray.700')}
-      py={5}>
-      <Divider title="Productos"/>
+      py={10}>
+      <DividerBar title="Productos"/>
       <Flex
         wrap="wrap"
         justify="center"

@@ -6,7 +6,7 @@ import {
 import CaptionCarousel from '../components/carrusel.jsx';
 import Card from '../components/card';
 import products from '../assets/ej_products';
-import Divider from '../components/divider';
+import DividerBar from '../components/dividerBar';
 
 function HeroTemplates() {
   return (
@@ -16,7 +16,7 @@ function HeroTemplates() {
 		direction="column" 
 		bg={useColorModeValue('gray.50', 'gray.800')}>
       	<CaptionCarousel width="100%" />
-		<Divider title="Productos Destacados"/>
+		<DividerBar title="Productos Destacados"/>
       	<Flex
 			wrap="wrap"
 			justify="center"
@@ -34,7 +34,7 @@ function HeroTemplates() {
 			/>
 			))}
       	</Flex>
-		<Divider title="Servicios Integrales"/>
+		<DividerBar title="Servicios Integrales"/>
     </Flex>
   );
 }
