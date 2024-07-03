@@ -19,7 +19,7 @@ const Card = ({ image, brand, title, price, oldPrice, productId }) => {
         <Box
           role={'group'}
           p={6}
-          maxW={'330px'}
+          maxW={{ base: '90%', sm: '75%', md: '330px' }}
           w={'full'}
           bg={useColorModeValue('white', 'gray.800')}
           boxShadow={'2xl'}
@@ -30,7 +30,7 @@ const Card = ({ image, brand, title, price, oldPrice, productId }) => {
             rounded={'lg'}
             mt={-12}
             pos={'relative'}
-            height={'230px'}
+            height={{ base: '180px', sm: '200px', md: '230px' }}
             _after={{
               transition: 'all .3s ease',
               content: '""',
@@ -50,8 +50,8 @@ const Card = ({ image, brand, title, price, oldPrice, productId }) => {
             }}>
             <Image
               rounded={'lg'}
-              height={230}
-              width={282}
+              height={{ base: '180px', sm: '200px', md: '230px' }}
+              width={'full'}
               objectFit={'cover'}
               src={image}
               alt={title}
@@ -61,11 +61,11 @@ const Card = ({ image, brand, title, price, oldPrice, productId }) => {
             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
               {brand}
             </Text>
-            <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
+            <Heading fontSize={{ base: 'xl', md: '2xl' }} fontFamily={'body'} fontWeight={500}>
               {title}
             </Heading>
             <Stack direction={'row'} align={'center'}>
-              <Text fontWeight={800} fontSize={'xl'}>
+              <Text fontWeight={800} fontSize={{ base: 'lg', md: 'xl' }}>
                 ${price}
               </Text>
               {oldPrice && (
