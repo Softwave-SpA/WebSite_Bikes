@@ -23,13 +23,9 @@ import letraImage from '../assets/SprintPits_Letra.png'
 
 const Links = [
   { name: 'Inicio', path: '/' },
-  { name: 'Productos', path: '/products' },
-<<<<<<< Updated upstream
-  { name: 'Contacto', path: '/contact' },
-=======
   { name: 'Servicios', path: '/services' },
+  { name: 'Productos', path: '/products' },
   { name: 'Contacto', path: '/contacto' },
->>>>>>> Stashed changes
 ];
 
 const NavLink = ({ children, to }) => {
@@ -77,23 +73,9 @@ export default function NavBar() {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-<<<<<<< Updated upstream
-=======
-          <HStack spacing={8} alignItems={'center'}>
-            <Avatar boxSize="60px" src={logoImage} />
-            <Image src={letraImage} alt="Logo" width="160px" height="auto" objectFit="contain"/>
-            <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-              {Links.map((link) => (
-                <NavLink key={link.name} to={link.path}>
-                  {link.name} 
-                </NavLink>
-              ))}
-            </HStack>
-          </HStack>
           <Flex alignItems={'center'}>
             <DrawerShop />
           </Flex>
->>>>>>> Stashed changes
         </Flex>
 
         {isOpen ? (
