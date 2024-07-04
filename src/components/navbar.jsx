@@ -5,12 +5,6 @@ import {
   HStack,
   IconButton,
   Image,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   Stack,
@@ -25,7 +19,7 @@ const Links = [
   { name: 'Inicio', path: '/' },
   { name: 'Servicios', path: '/services' },
   { name: 'Productos', path: '/products' },
-  { name: 'Contacto', path: '/contacto' },
+  { name: 'Contacto', path: '/contact' },
 ];
 
 const NavLink = ({ children, to }) => {
