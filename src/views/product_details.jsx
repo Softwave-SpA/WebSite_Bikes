@@ -26,6 +26,13 @@ export default function ProductDetails() {
     return <Text>Product not found</Text>;
   }
 
+  const addToCart = () => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Product added to cart');
+  };
+
   return (
     <Container maxW={'7xl'}>
       <SimpleGrid
@@ -166,7 +173,8 @@ export default function ProductDetails() {
             _hover={{
               transform: 'translateY(2px)',
               boxShadow: 'lg',
-            }}>
+            }}
+            onClick={addToCart}>
             Add to cart
           </Button>
 
