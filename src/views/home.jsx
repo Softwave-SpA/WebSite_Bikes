@@ -4,11 +4,12 @@ import {
 } from '@chakra-ui/react';
 
 import CaptionCarousel from '../components/carrusel.jsx';
-import Card from '../components/card';
-import products from '../assets/ej_products';
-import DividerBar from '../components/dividerBar';
+import Card from '../components/card.jsx';
+import products from '../assets/ej_products.jsx';
+import DividerBar from '../components/dividerBar.jsx';
+import Pricing from '../components/pricing.jsx'
 
-function HeroTemplates() {
+function Home() {
   return (
     <Flex
 		align={'center'}
@@ -35,8 +36,9 @@ function HeroTemplates() {
 			))}
       	</Flex>
 		<DividerBar title="Servicios Integrales"/>
+		<Pricing />
     </Flex>
   );
 }
 
-export default HeroTemplates;
+export default Home;

@@ -1,40 +1,38 @@
 import {
-    Box,
-    Center,
-    useColorModeValue,
-    Heading,
-    Text,
-    Stack,
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Stack,
+  useColorModeValue,
   } from '@chakra-ui/react';
   
   const ServiceCard = ({ name, price, description }) => {
     return (
-      <Center py={6} width={{ base: '100%', sm: '80%', md: '45%', lg: '30%' }}>
-        <Box
-          role={'group'}
-          p={6}
-          maxW={'330px'}
-          w={'full'}
-          bg={useColorModeValue('white', 'gray.800')}
-          boxShadow={'2xl'}
-          rounded={'lg'}
-          pos={'relative'}
-          zIndex={1}>
-          <Stack pt={10} align={'center'}>
-            <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-              {name}
-            </Heading>
-            <Text fontWeight={800} fontSize={'xl'} color={'teal.500'}>
-              ${price}
-            </Text>
-            <Text color={'gray.500'} fontSize={'sm'} textAlign={'center'}>
-              {description}
-            </Text>
-          </Stack>
-        </Box>
-      </Center>
-    );
-  };
+      <Flex
+      direction={{ base: 'column', md: 'row' }}
+      justify="space-between"
+      align="flex-start"
+      width="100%"
+      py={4}
+      px={6}
+      borderBottom="1px solid"
+      borderColor={useColorModeValue('gray.200', 'gray.700')}
+    >
+      <Stack spacing={2} width={{ base: '100%', md: '70%' }}>
+        <Heading fontSize="lg" fontWeight={600}>
+          {name}
+        </Heading>
+        <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize="sm">
+          {description}
+        </Text>
+      </Stack>
+      <Text fontWeight={800} fontSize="lg" color="#2D284A" mt={{ base: 4, md: 0 }} textAlign={{ base: 'left', md: 'right' }}>
+        ${price}
+      </Text>
+    </Flex>
+  );
+};
   
   export default ServiceCard;
   

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HeroTemplates from './views/hero_templates';
+import Home from './views/home';
 import Products from './views/products';
 import ProductDetails from './views/product_details';
 import Services from './views/services';
@@ -14,7 +14,7 @@ function App() {
         <NavBar/>
         <div className="App">
           <Routes>
-            <Route path="/" element={< HeroTemplates />} />
+            <Route path="/" element={< Home />} />
             <Route path="/products" element={< Products /> } />
             <Route path="/products/:id" element={< ProductDetails />} />
             <Route path="/services" element={< Services /> } />

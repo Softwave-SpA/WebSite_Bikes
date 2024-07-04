@@ -53,11 +53,30 @@ export default function NavBar() {
 
   return (
     <>
-      <Box bg={useColorModeValue('#2D284A', '#BEBDC0')} px={4}>
+      <Box
+        bg={useColorModeValue('#2D284A', '#BEBDC0')}
+        px={4}
+        position="fixed"
+        width="100%"
+        top={0}
+        zIndex={10}
+        boxShadow="md"
+      >
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
-            <Avatar boxSize="60px" src={logoImage} />
-            <Image src={letraImage} alt="Logo" width="160px" height="auto" objectFit="contain" />
+            <IconButton
+              size={'md'}
+              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+              aria-label={'Open Menu'}
+              display={{ md: 'none' }}
+              onClick={isOpen ? onClose : onOpen}
+            />
+            <Link to="/">
+              <Avatar boxSize="60px" src={logoImage} />
+            </Link>
+            <Link to="/">
+              <Image src={letraImage} alt="Logo" width="160px" height="auto" objectFit="contain" />
+            </Link>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
                 <NavLink key={link.name} to={link.path}>
@@ -66,13 +85,6 @@ export default function NavBar() {
               ))}
             </HStack>
           </HStack>
-          <IconButton
-            size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={'Open Menu'}
-            display={{ md: 'none' }}
-            onClick={isOpen ? onClose : onOpen}
-          />
           <Flex alignItems={'center'}>
             <DrawerShop />
           </Flex>
@@ -90,6 +102,7 @@ export default function NavBar() {
           </Box>
         ) : null}
       </Box>
+      <Box height="16" />
     </>
   )
 }
