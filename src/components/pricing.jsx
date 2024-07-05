@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Box,
   Stack,
@@ -26,6 +27,10 @@ const PriceWrapper = ({ children }) => {
     </Box>
   )
 }
+
+PriceWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 const Pricing = () => {
   return (
