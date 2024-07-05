@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Box,
   Center,
@@ -6,7 +7,7 @@ import {
   Text,
   Stack,
   Image,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
 import { Link } from 'react-router-dom';
 
@@ -78,7 +79,16 @@ const Card = ({ image, brand, title, price, oldPrice, productId }) => {
         </Box>
       </Link>
     </Center>
-  )
-}
+  );
+};
+
+Card.propTypes = {
+  image: PropTypes.string.isRequired,
+  brand: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  oldPrice: PropTypes.number,
+  productId: PropTypes.number.isRequired,
+};
 
 export default Card;

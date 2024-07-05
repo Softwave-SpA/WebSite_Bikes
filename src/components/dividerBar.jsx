@@ -1,5 +1,5 @@
-import React from 'react';
 import { Stack, Heading, Box, useColorModeValue } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 
 const DividerBar = ({ title }) => {
   return (
@@ -22,5 +22,9 @@ const DividerBar = ({ title }) => {
     </Stack>
   );
 };
+
+DividerBar.propTypes = {
+  title: PropTypes.string.isRequired,
+}
 
 export default DividerBar;

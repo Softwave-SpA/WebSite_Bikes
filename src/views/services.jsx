@@ -1,7 +1,7 @@
 import {
 	Box,
-  	Flex,
-  	useColorModeValue,
+  Flex,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import ServiceCard from '../components/serviceCard'; 

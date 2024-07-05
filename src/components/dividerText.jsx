@@ -1,5 +1,5 @@
-import React from 'react';
 import { Stack, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 
 const DividerText = ({ title, subtitle }) => {
   return (
@@ -15,6 +15,11 @@ const DividerText = ({ title, subtitle }) => {
         </Text>
     </Stack>
   );
+};
+
+DividerText.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
 };
 
 export default DividerText;
