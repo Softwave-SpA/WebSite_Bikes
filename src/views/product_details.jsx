@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Container,
@@ -17,10 +18,19 @@ import {
 import { MdLocalShipping } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import products from '../assets/ej_products';
+import CartModal from '../components/cartModal';
 
 export default function ProductDetails() {
   const { id } = useParams();
   const product = products.find((product) => product.id === parseInt(id));
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const priceColor = useColorModeValue('gray.900', 'gray.400');
+  const dividerColor = useColorModeValue('gray.200', 'gray.600');
+  const textColor = useColorModeValue('gray.500', 'gray.400');
+  const featuresColor = useColorModeValue('yellow.500', 'yellow.300');
+  const buttonBg = useColorModeValue('gray.900', 'gray.50');
+  const buttonText = useColorModeValue('white', 'gray.900');
 
   if (!product) {
     return <Text>Product not found</Text>;
@@ -30,7 +40,11 @@ export default function ProductDetails() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart.push(product);
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert('Product added to cart');
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -59,7 +73,7 @@ export default function ProductDetails() {
               {product.name}
             </Heading>
             <Text
-              color={useColorModeValue('gray.900', 'gray.400')}
+              color={priceColor}
               fontWeight={300}
               fontSize={'2xl'}>
               ${product.price}
@@ -70,11 +84,11 @@ export default function ProductDetails() {
             spacing={{ base: 4, sm: 6 }}
             direction={'column'}
             divider={
-              <StackDivider borderColor={useColorModeValue('gray.200', 'gray.600')} />
+              <StackDivider borderColor={dividerColor} />
             }>
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text
-                color={useColorModeValue('gray.500', 'gray.400')}
+                color={textColor}
                 fontSize={'2xl'}
                 fontWeight={'300'}>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -89,7 +103,7 @@ export default function ProductDetails() {
             <Box>
               <Text
                 fontSize={{ base: '16px', lg: '18px' }}
-                color={useColorModeValue('yellow.500', 'yellow.300')}
+                color={featuresColor}
                 fontWeight={'500'}
                 textTransform={'uppercase'}
                 mb={'4'}>
@@ -107,7 +121,7 @@ export default function ProductDetails() {
             <Box>
               <Text
                 fontSize={{ base: '16px', lg: '18px' }}
-                color={useColorModeValue('yellow.500', 'yellow.300')}
+                color={featuresColor}
                 fontWeight={'500'}
                 textTransform={'uppercase'}
                 mb={'4'}>
@@ -167,8 +181,8 @@ export default function ProductDetails() {
             mt={8}
             size={'lg'}
             py={'7'}
-            bg={useColorModeValue('gray.900', 'gray.50')}
-            color={useColorModeValue('white', 'gray.900')}
+            bg={buttonBg}
+            color={buttonText}
             textTransform={'uppercase'}
             _hover={{
               transform: 'translateY(2px)',
@@ -184,6 +198,7 @@ export default function ProductDetails() {
           </Stack>
         </Stack>
       </SimpleGrid>
+      <CartModal isOpen={isModalOpen} onClose={closeModal} />
     </Container>
   );
 }
