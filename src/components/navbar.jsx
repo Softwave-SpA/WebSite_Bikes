@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Box,
   Flex,
@@ -8,12 +9,12 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
-} from '@chakra-ui/react'
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+} from '@chakra-ui/react';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
-import DrawerShop from './drawer'
-import logoImage from '../assets/SprintPits_Logo.jpg'
-import letraImage from '../assets/SprintPits_Letra.png'
+import DrawerShop from './drawer';
+import logoImage from '../assets/SprintPits_Logo.jpg';
+import letraImage from '../assets/SprintPits_Letra.png';
 
 const Links = [
   { name: 'Inicio', path: '/' },
@@ -39,11 +40,16 @@ const NavLink = ({ children, to }) => {
       to={to}>
       {children}
     </Box>
-  )
-}
+  );
+};
+
+NavLink.propTypes = {
+  children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
+};
 
 export default function NavBar() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -54,8 +60,7 @@ export default function NavBar() {
         width="100%"
         top={0}
         zIndex={10}
-        boxShadow="md"
-      >
+        boxShadow="md">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
             <IconButton
@@ -88,7 +93,7 @@ export default function NavBar() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack py={4} as={'nav'} spacing={3}>
               {Links.map((link) => (
-                <NavLink key={link.name} to={link.path} >
+                <NavLink key={link.name} to={link.path}>
                   {link.name}
                 </NavLink>
               ))}
@@ -98,5 +103,11 @@ export default function NavBar() {
       </Box>
       <Box height="16" />
     </>
-  )
+  );
 }
+
+NavBar.propTypes = {
+  isOpen: PropTypes.bool,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
+};
