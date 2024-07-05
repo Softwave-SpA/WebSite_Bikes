@@ -11,10 +11,12 @@ import {
   useColorModeValue,
   VStack,
   Text,
-  Box
+  Box,
+  HStack,
+  IconButton
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaTrash } from 'react-icons/fa';
 
 export default function DrawerShop() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,6 +27,13 @@ export default function DrawerShop() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartItems(cart);
   }, [isOpen]);
+
+  const removeFromCart = (index) => {
+    const newCart = [...cartItems];
+    newCart.splice(index, 1);
+    setCartItems(newCart);
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  };
 
   return (
     <>
@@ -54,8 +63,17 @@ export default function DrawerShop() {
               <VStack spacing={4}>
                 {cartItems.map((item, index) => (
                   <Box key={index} p={4} borderWidth='1px' borderRadius='lg' w='100%'>
-                    <Text fontWeight='bold'>{item.name}</Text>
-                    <Text>${item.price}</Text>
+                    <HStack justifyContent="space-between">
+                      <Box>
+                        <Text fontWeight='bold'>{item.name}</Text>
+                        <Text>${item.price}</Text>
+                      </Box>
+                      <IconButton
+                        aria-label='Eliminar artículo'
+                        icon={<FaTrash />}
+                        onClick={() => removeFromCart(index)}
+                      />
+                    </HStack>
                   </Box>
                 ))}
               </VStack>
