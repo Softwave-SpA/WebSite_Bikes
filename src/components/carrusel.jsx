@@ -10,6 +10,9 @@ import {
 } from '@chakra-ui/react';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 import Slider from 'react-slick';
+import accesorio_photo from '../assets/accesorio_bicicleta.jpg';
+import bicicleta_photo from '../assets/imagen_bicicleta.jpg';
+import reparacion_photo from '../assets/reparacion_bicicleta.jpg';
 
 const settings = {
   dots: true,
@@ -29,29 +32,29 @@ export default function CaptionCarousel() {
   const top = useBreakpointValue({ base: '50%', md: '50%' });
   const side = useBreakpointValue({ base: '30%', md: '40px' });
 
-  const carouselHeight = '400px';
+  const carouselHeight = '475px';
 
   const cards = [
     {
-      title: '¡Te damos la bienvenida a la página de Relaciones Estudiantiles de la USM!',
+      title: 'Equipamiento y Accesorios Esenciales para Ciclistas',
       text: '',
       color: 'Black',
       color_oposite: 'White',
-      image: 'https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+      image: accesorio_photo,
     },
     {
-      title: 'Información sobre becas, salud y noticias destinadas a nuestros estudiantes.',
+      title: 'Descubre las Mejores Bicicletas del Año',
       text: '',
       color: 'White',
       color_oposite: 'Black',
-      image: 'https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+      image: bicicleta_photo,
     },
     {
-      title: 'Con el fin de mejorar la calidad de vida universitaria.',
+      title: 'Mantencion y reparacion de bicicletas',
       text: '',
       color: 'Black',
       color_oposite: 'White',
-      image: 'https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+      image: reparacion_photo,
     },
   ];
 
