@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const DividerBar = ({ title }) => {
   return (
-    <Stack py={4} spacing={0} align="center">
+    <Stack spacing={2} align="center">
       <Heading 
         as="h1" 
         fontSize="4xl"
