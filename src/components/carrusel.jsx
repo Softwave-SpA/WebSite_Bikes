@@ -59,6 +59,7 @@ export default function CaptionCarousel() {
   ];
 
   return (
+    <>
     <Box position={'relative'} height={carouselHeight} width="100%" overflow={'hidden'}>
       <link
         rel="stylesheet"
@@ -130,5 +131,7 @@ export default function CaptionCarousel() {
         ))}
       </Slider>
     </Box>
+    <Box height="4" />
+    </>
   );
 }
