@@ -20,7 +20,7 @@ const Card = ({ image, brand, title, price, oldPrice, productId }) => {
         <Box
           role={'group'}
           p={6}
-          maxW={{ base: '90%', sm: '75%', md: '330px' }}
+          maxW={'330px'}
           w={'full'}
           bg={useColorModeValue('white', 'gray.800')}
           boxShadow={'2xl'}
@@ -31,7 +31,7 @@ const Card = ({ image, brand, title, price, oldPrice, productId }) => {
             rounded={'lg'}
             mt={-12}
             pos={'relative'}
-            height={{ base: '180px', sm: '200px', md: '230px' }}
+            height={'230px'}
             _after={{
               transition: 'all .3s ease',
               content: '""',
@@ -51,8 +51,8 @@ const Card = ({ image, brand, title, price, oldPrice, productId }) => {
             }}>
             <Image
               rounded={'lg'}
-              height={{ base: '180px', sm: '200px', md: '230px' }}
-              width={'full'}
+              height={230}
+              width={282}
               objectFit={'cover'}
               src={image}
               alt={title}
