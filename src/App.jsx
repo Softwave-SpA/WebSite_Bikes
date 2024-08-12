@@ -6,6 +6,7 @@ import Services from './views/services';
 import Contact from './views/contact';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
+import ServicesComponent from './views/servicesComponent';
 
 function App() {
   return (
@@ -15,11 +16,11 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={< Home />} />
-            <Route path='/WebSite_Bikes' element={< Home />}/>
             <Route path="/products" element={< Products /> } />
             <Route path="/products/:id" element={< ProductDetails />} />
             <Route path="/services" element={< Services /> } />
             <Route path="/contact" element={< Contact /> } />
+            <Route path="/prueba" element={< ServicesComponent /> } />
           </Routes>
         </div>
         <Footer />

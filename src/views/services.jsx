@@ -4,7 +4,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-import ServiceCard from '../components/serviceCard'; 
+// import ServiceCard from '../components/serviceCard'; 
 import DividerText from '../components/dividerText';
 import services from '../assets/ej_services';
 import Pricing from '../components/pricing';
@@ -24,7 +24,7 @@ function Services() {
 			/>
 			<Pricing />
 			<DividerText title={"Mantenciones Específicas"}/>
-			<Box width={{ base: '90%', md: '80%', lg: '60%' }}>
+			{/* <Box width={{ base: '90%', md: '80%', lg: '60%' }}>
 				{services.map((service, index) => (
 				<ServiceCard
 					key={index}
@@ -33,7 +33,7 @@ function Services() {
 					description={service.description}
 				/>
 				))}
-			</Box>
+			</Box> */}
 		</Flex>
 	);
 }

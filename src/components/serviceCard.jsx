@@ -1,43 +1,66 @@
-import {
-  Flex,
-  Heading,
-  Text,
-  Stack,
-  useColorModeValue,
-  } from '@chakra-ui/react';
+// ServiceCard.js
+import React from 'react';
+import { Box, Heading, Text, List, ListItem, VStack, HStack, Icon, useBreakpointValue } from '@chakra-ui/react';
+import { FaWrench, FaCog, FaTools } from 'react-icons/fa';
 
-import PropTypes from 'prop-types';
-const ServiceCard = ({ name, price, description }) => {
+const ServiceCard = ({ service }) => {
+  let icon;
+  switch (service.title) {
+    case 'Mantención Full':
+      icon = FaWrench;
+      break;
+    case 'Mantención Media':
+      icon = FaCog;
+      break;
+    case 'Mantención Básica':
+      icon = FaTools;
+      break;
+    case 'Mantención Fixie':
+      icon = FaWrench;
+      break;
+    case 'Mantención bicicleta de Triatlón':
+      icon = FaCog;
+      break;
+    default:
+      icon = FaTools;
+      break;
+  }
+
+  // Adjust padding and spacing based on screen size
+  const padding = useBreakpointValue({ base: '4', sm: '6' });
+  const spacing = useBreakpointValue({ base: '4', sm: '6' });
+
   return (
-    <Flex
-    direction={{ base: 'column', md: 'row' }}
-    justify="space-between"
-    align="flex-start"
-    width="100%"
-    py={4}
-    px={6}
-    borderBottom="1px solid"
-    borderColor={useColorModeValue('gray.200', 'gray.700')}>
-    <Stack spacing={2} width={{ base: '100%', md: '70%' }}>
-      <Heading fontSize="lg" fontWeight={600}>
-        {name}
-      </Heading>
-      <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize="sm">
-        {description}
-      </Text>
-    </Stack>
-    <Text fontWeight={800} fontSize="lg" color="#2D284A" mt={{ base: 4, md: 0 }} textAlign={{ base: 'left', md: 'right' }}>
-      ${price}
-    </Text>
-  </Flex>
+    <Box
+      bg="white"
+      shadow="md"
+      borderRadius="md"
+      borderWidth={1}
+      overflow="hidden"
+      _hover={{ shadow: 'lg', transform: 'scale(1.02)' }}
+      transition="all 0.3s ease"
+      p={padding}
+      w={{ base: 'full', sm: '320px' }}
+      mx="auto"
+    >
+      <HStack spacing={4} mb={4}>
+        <Icon as={icon} color="teal.500" boxSize={8} />
+        <VStack align="start" spacing={1}>
+          <Heading as="h3" size="md">{service.title}</Heading>
+          <Text fontSize="lg" fontWeight="bold">${service.price.toLocaleString()}</Text>
+        </VStack>
+      </HStack>
+      <List spacing={2} mb={4}>
+        {service.details.map((detail, index) => (
+          <ListItem key={index}>
+            {detail}
+          </ListItem>
+        ))}
+      </List>
+      {service.note && <Text fontStyle="italic" color="gray.500">{service.note}</Text>}
+    </Box>
   );
 };
 
-ServiceCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
-};
-
 export default ServiceCard;
-  
+

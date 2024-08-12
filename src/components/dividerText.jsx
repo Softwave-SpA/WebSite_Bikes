@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const DividerText = ({ title, subtitle }) => {
   return (
-    <Stack spacing={2} textAlign="center" >
+    <Stack spacing={5} textAlign="center" >
         <Heading 
           as="h1" 
           fontSize="4xl" 
