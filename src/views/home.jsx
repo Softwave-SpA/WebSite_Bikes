@@ -7,7 +7,6 @@ import CaptionCarousel from '../components/carrusel.jsx';
 import Card from '../components/card.jsx';
 import products from '../assets/ej_products.jsx';
 import DividerBar from '../components/dividerBar.jsx';
-import Pricing from '../components/pricing.jsx'
 
 function Home() {
   return (
@@ -36,7 +35,6 @@ function Home() {
 				))}
 			</Flex>
 			<DividerBar title="Servicios Integrales"/>
-			<Pricing />
     </Flex>
   );
 }
