@@ -34,7 +34,7 @@ const Feature = (props) => {
   );
 };
 
-const PricingCard = ({ title, price, features }) => {
+const PricingCard = ({ title, price, features, onScheduleClick }) => {
   return (
     <Box
       rounded={["none", "lg"]}
@@ -87,6 +87,7 @@ const PricingCard = ({ title, price, features }) => {
             bg: "gray.100",
             _dark: { bg: "gray.700" },
           }}
+          onClick={onScheduleClick}
         >
           Agendar
         </Link>
