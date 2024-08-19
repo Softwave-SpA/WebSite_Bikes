@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import axios from "axios";
 import {
   Box,
   Button,
@@ -34,7 +35,14 @@ const ContactForm = () => {
 
   const handleFileChange = (e) => {
     const selectedFiles = e.target.files;
-    const validFormats = ["image/jpeg", "image/png", "image/gif", "image/bmp", "image/webp", "image/svg+xml"];
+    const validFormats = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/bmp",
+      "image/webp",
+      "image/svg+xml",
+    ];
     
     // Verificación de cada archivo seleccionado
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -55,16 +63,46 @@ const ContactForm = () => {
     setFormData({ ...formData, imagenes: selectedFiles });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes manejar el envío del formulario
-    toast({
-      title: "Formulario enviado",
-      description: "Nos pondremos en contacto contigo pronto.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
+  
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('nombre', formData.nombre);
+      formDataToSend.append('correo', formData.correo);
+      formDataToSend.append('telefono', formData.telefono);
+      formDataToSend.append('asunto', formData.asunto);
+      formDataToSend.append('comentarios', formData.comentarios);
+  
+      if (formData.imagenes) {
+        for (let i = 0; i < formData.imagenes.length; i++) {
+          formDataToSend.append('imagenes', formData.imagenes[i]);
+        }
+      }
+  
+      await axios.post('http://localhost:3000/server/email', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      toast({
+        title: "Formulario enviado",
+        description: "Nos pondremos en contacto contigo pronto.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Error al enviar el formulario", error);
+      toast({
+        title: "Error",
+        description: "Ocurrió un problema al enviar el formulario.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
