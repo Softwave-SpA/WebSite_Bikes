@@ -29,7 +29,7 @@ export class EmailService {
       `,
       attachments: imagenes?.map((file) => ({
         filename: file.originalname,
-        path: file.buffer,
+        content: file.buffer,
       })),
     };
 
