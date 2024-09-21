@@ -61,7 +61,7 @@ export default function Footer() {
           <Avatar boxSize="100px" src={Logo} />
           <Image src={Letra} alt="Logo" width="250px" height="auto" objectFit="contain"/>
         </Stack>
-        <Text>© 2024 NovaCode. All rights reserved</Text>
+        <Text>© 2024 Softwave. All rights reserved</Text>
         <Stack direction={'row'} spacing={6}>
           <SocialButton label={'Twitter'} href={'#'}>
             <FaTwitter />

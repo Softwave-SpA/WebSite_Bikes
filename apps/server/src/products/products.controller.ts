@@ -6,14 +6,13 @@ import {
   Param,
   Delete,
   Put,
-  UseInterceptors,
   UploadedFile,
-  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 
@@ -21,52 +20,55 @@ import { extname } from 'path';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  // Ruta para cargar las imágenes
-  @Post('upload')
+  @Post()
   @UseInterceptors(
-    FileInterceptor('file', {
+    FileInterceptor('imagen', {
       storage: diskStorage({
-        destination: './uploads/products', // Ruta donde se almacenarán las imágenes
-        filename: (req, file, callback) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          const ext = extname(file.originalname);
-          const filename = `${file.originalname}-${uniqueSuffix}${ext}`;
-          callback(null, filename);
+        destination: './uploads', // Donde guardarás las imágenes
+        filename: (req, file, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          cb(null, `${randomName}${extname(file.originalname)}`);
         },
       }),
     }),
   )
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return { message: 'File uploaded successfully', file };
+  async create(
+    @Body() createProductDto: CreateProductDto,
+    @UploadedFile() imagen: Express.Multer.File,
+  ) {
+    // Agregar la ruta de la imagen al DTO
+    const productWithImage = {
+      ...createProductDto,
+      imagen: imagen ? imagen.filename : null,
+    };
+
+    return this.productsService.create(productWithImage);
   }
 
-  // Crear producto
-  @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
-  }
-
-  // Obtener todos los productos
-  @Get()
-  findAll() {
-    return this.productsService.findAll();
-  }
-
-  // Obtener un producto por ID
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(id);
-  }
-
-  // Actualizar un producto
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(id, updateProductDto);
-  }
-
-  // Eliminar un producto
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(id);
-  }
+    // Obtener todos los productos
+    @Get()
+    findAll() {
+      return this.productsService.findAll();
+    }
+  
+    // Obtener un producto por ID
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+      return this.productsService.findOne(id);
+    }
+  
+    // Actualizar un producto
+    @Put(':id')
+    update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+      return this.productsService.update(id, updateProductDto);
+    }
+  
+    // Eliminar un producto
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+      return this.productsService.remove(id);
+    }
 }

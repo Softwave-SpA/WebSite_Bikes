@@ -6,11 +6,9 @@ import Services from './views/services';
 import Contact from './views/contact';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
-import ProductForm from './components/productForm';
 
 function App() {
   return (
-    <Router>
       <div>
         <NavBar/>
           <div className="App">
@@ -20,12 +18,10 @@ function App() {
               <Route path="/products/:id" element={< ProductDetails />} />
               <Route path="/services" element={< Services /> } />
               <Route path="/contact" element={< Contact /> } />
-              <Route path="/admin/addproduct" element={< ProductForm /> } />
             </Routes>
           </div>
         <Footer />
       </div>
-    </Router>
   )
 }
 

@@ -12,8 +12,15 @@ import { MongooseModule } from '@nestjs/mongoose';
   imports: [
     EmailModule,
     ProductsModule,
+    // Sirve el frontend en /app
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../', 'client/dist'),
+      serveRoot: '/app', // Sirve el frontend en esta ruta
+    }),
+    // Sirve las imágenes en /uploads
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../', 'server/uploads'),
+      serveRoot: '/uploads',  // Ruta para acceder a las imágenes
     }),
     ConfigModule.forRoot({
       isGlobal: true,
@@ -24,3 +31,4 @@ import { MongooseModule } from '@nestjs/mongoose';
   providers: [AppService],
 })
 export class AppModule {}
+

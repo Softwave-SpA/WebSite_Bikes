@@ -1,9 +1,22 @@
+import { IsString, IsNumber, IsOptional, IsArray } from 'class-validator';
+
 export class CreateProductDto {
-    readonly nombre: string;
-    readonly precio: number;
-    readonly descripcion: string;
-    readonly caracteristicas: Record<string, any>; // Guardará las características como clave-valor
-    readonly imagen: string;
-    readonly stock: number;
-  }
-  
+  @IsString()
+  nombre: string;
+
+  @IsNumber()
+  precio: number;
+
+  @IsString()
+  descripcion: string;
+
+  @IsNumber()
+  stock: number;
+
+  @IsArray()
+  @IsOptional()
+  caracteristicas?: { clave: string; valor: string }[];
+
+  @IsOptional()
+  imagen?: string; // Aquí se almacena el nombre de la imagen
+}

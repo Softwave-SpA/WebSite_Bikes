@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -7,27 +7,43 @@ import {
   Input,
   Stack,
   Textarea,
-  useToast,
-} from "@chakra-ui/react";
-import axios from "axios";
+} from '@chakra-ui/react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const ProductForm = () => {
+const EditProductForm = () => {
+  const { id } = useParams(); // Obtener el ID del producto desde los parámetros de la URL
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    nombre: "",
-    precio: "",
-    descripcion: "",
+    nombre: '',
+    precio: '',
+    descripcion: '',
     imagen: null,
-    stock: "",
-    caracteristicas: [{ clave: "", valor: "" }], // Inicializa con una característica vacía
+    stock: '',
+    caracteristicas: [{ clave: '', valor: '' }], // Inicializa con una característica vacía
   });
-  const toast = useToast(); // Para mostrar notificaciones
+
+  useEffect(() => {
+    // Obtener el producto desde la base de datos usando el ID
+    axios.get(`/server/products/${id}`)
+      .then((response) => {
+        const productData = response.data;
+  
+        // Asegurarse de que el campo "caracteristicas" siempre sea un array
+        productData.caracteristicas = Array.isArray(productData.caracteristicas)
+          ? productData.caracteristicas
+          : [{ clave: '', valor: '' }];
+        
+        setFormData(productData);
+      })
+      .catch((error) => console.error(error));
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Manejar el cambio en las características
   const handleCaracteristicaChange = (index, e) => {
     const { name, value } = e.target;
     const newCaracteristicas = [...formData.caracteristicas];
@@ -35,15 +51,13 @@ const ProductForm = () => {
     setFormData({ ...formData, caracteristicas: newCaracteristicas });
   };
 
-  // Agregar una nueva característica
   const addCaracteristica = () => {
     setFormData({
       ...formData,
-      caracteristicas: [...formData.caracteristicas, { clave: "", valor: "" }],
+      caracteristicas: [...formData.caracteristicas, { clave: '', valor: '' }],
     });
   };
 
-  // Eliminar una característica
   const removeCaracteristica = (index) => {
     const newCaracteristicas = formData.caracteristicas.filter(
       (_, i) => i !== index
@@ -51,52 +65,15 @@ const ProductForm = () => {
     setFormData({ ...formData, caracteristicas: newCaracteristicas });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Crear FormData para manejar el envío de archivos
-    const productData = new FormData();
-    productData.append("nombre", formData.nombre);
-    productData.append("precio", formData.precio);
-    productData.append("descripcion", formData.descripcion);
-    productData.append("stock", formData.stock);
-    productData.append("imagen", formData.imagen); // La imagen seleccionada
-
-    // Añadir las características al FormData como un JSON string
-    productData.append(
-      "caracteristicas",
-      JSON.stringify(formData.caracteristicas)
-    );
-
-    try {
-      // Hacer el envío al backend usando axios
-      const response = await axios.post("http://localhost:3000/server/products", productData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      // Mostrar mensaje de éxito
-      toast({
-        title: "Producto guardado",
-        description: "El producto se ha guardado exitosamente.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-
-      console.log(response.data); // Ver la respuesta del servidor
-    } catch (error) {
-      console.error(error);
-      // Mostrar mensaje de error
-      toast({
-        title: "Error al guardar producto",
-        description: "Hubo un problema al guardar el producto.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
+    // Aquí procesas el envío de datos para la actualización
+    axios.put(`/server/products/${id}`, formData)
+      .then(() => {
+        // Redirigir a la página del listado de productos después de la actualización
+        navigate('/admin/products');
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -132,7 +109,7 @@ const ProductForm = () => {
             />
           </FormControl>
 
-          <FormControl id="imagen" isRequired>
+          <FormControl id="imagen">
             <FormLabel>Imagen del Producto</FormLabel>
             <Input
               type="file"
@@ -157,27 +134,24 @@ const ProductForm = () => {
           {formData.caracteristicas.map((caracteristica, index) => (
             <Stack key={index} direction="row" align="center">
               <FormControl>
-                <FormLabel>Característica</FormLabel>
+                <FormLabel>Clave</FormLabel>
                 <Input
                   name="clave"
                   value={caracteristica.clave}
                   onChange={(e) => handleCaracteristicaChange(index, e)}
-                  placeholder="Título de la característica"
+                  placeholder="Clave de la característica"
                 />
               </FormControl>
               <FormControl>
-                <FormLabel>Descripción</FormLabel>
+                <FormLabel>Valor</FormLabel>
                 <Input
                   name="valor"
                   value={caracteristica.valor}
                   onChange={(e) => handleCaracteristicaChange(index, e)}
-                  placeholder="Descripción de la característica"
+                  placeholder="Valor de la característica"
                 />
               </FormControl>
-              <Button
-                colorScheme="red"
-                onClick={() => removeCaracteristica(index)}
-              >
+              <Button colorScheme="red" onClick={() => removeCaracteristica(index)}>
                 Eliminar
               </Button>
             </Stack>
@@ -188,7 +162,7 @@ const ProductForm = () => {
           </Button>
 
           <Button type="submit" colorScheme="blue">
-            Guardar Producto
+            Actualizar Producto
           </Button>
         </Stack>
       </form>
@@ -196,4 +170,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default EditProductForm;
