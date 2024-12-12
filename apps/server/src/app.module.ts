@@ -25,7 +25,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://rooot:secretpass123@localhost:27017')
+    MongooseModule.forRoot(`${process.env.MONGO_URI}`)
   ],
   controllers: [AppController],
   providers: [AppService],
