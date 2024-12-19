@@ -17,8 +17,8 @@ export class Product {
   @Prop({ type: Object })  // Guardará las características como un objeto JSON
   caracteristicas: Record<string, any>;
 
-  @Prop()
-  imagen: string;
+  @Prop({ type: [String] })
+  multimedia: string[];
 
   @Prop({ required: true })
   stock: number;
