@@ -6,12 +6,15 @@ const DividerBar = ({ title }) => {
     <Stack spacing={2} align="center">
       <Heading 
         as="h1" 
-        fontSize="4xl"
-        color={useColorModeValue('#2D284A', 'gray.800')}>
+        fontSize={{ base: '3xl', md: '4xl'}}
+        color={useColorModeValue('#2D284A', 'gray.800')}
+        textAlign="center"
+        px={4}
+        >
         {title}
       </Heading>
       <Box 
-        width="75%" // Ajusta este valor según sea necesario
+        width={{ base: '90%', md: '75%' }} // Ajusta este valor según sea necesario
         height="4px" 
         bg={useColorModeValue('#2D284A', 'gray.800')}
         borderRadius="full"

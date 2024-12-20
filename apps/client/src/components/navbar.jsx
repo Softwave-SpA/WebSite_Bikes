@@ -62,33 +62,38 @@ export default function NavBar() {
         zIndex={10}
         boxShadow="md">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <HStack spacing={8} alignItems={'center'}>
+          <HStack spacing={{ base: 2, md: 8 }} alignItems={'center'}>
             <IconButton
-              size={'md'}
+              size={'sm'}
               icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
               aria-label={'Open Menu'}
               display={{ md: 'none' }}
               onClick={isOpen ? onClose : onOpen}
+              color={useColorModeValue('#BEBDC0', '#2D284A')} // Ajusta el color según el modo
+              bg="transparent" // Fondo transparente
+              _hover={{ bg: 'rgba(0, 0, 0, 0.1)' }} // Efecto al pasar el mouse
             />
             <Link to="/">
-              <Avatar boxSize="60px" src={logoImage} />
+              <Avatar boxSize={{ base: '40px', md: '60px' }} src={logoImage} />
             </Link>
             <Link to="/">
-              <Image src={letraImage} alt="Logo" width="160px" height="auto" objectFit="contain" />
+              <Image
+                src={letraImage}
+                alt="Logo"
+                width={{ base: '100px', md: '160px' }}
+                height="auto"
+                objectFit="contain"
+              />
             </Link>
-            <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-              {Links.map((link) => (
-                <NavLink key={link.name} to={link.path}>
-                  {link.name}
-                </NavLink>
-              ))}
-            </HStack>
           </HStack>
+
+          {/* Botón del carrito */}
           <Flex alignItems={'center'}>
-            <DrawerShop />
+            <DrawerShop boxSize={{ base: '30px', md: '40px' }} />
           </Flex>
         </Flex>
 
+        {/* Menú desplegable en móvil */}
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack py={4} as={'nav'} spacing={3}>

@@ -29,10 +29,11 @@ const settings = {
 export default function CaptionCarousel() {
   const [slider, setSlider] = React.useState();
 
+  // Posiciones ajustadas para flechas
   const top = useBreakpointValue({ base: '50%', md: '50%' });
-  const side = useBreakpointValue({ base: '30%', md: '40px' });
+  const side = useBreakpointValue({ base: '5px', md: '40px' });
 
-  const carouselHeight = '475px';
+  const carouselHeight = useBreakpointValue({ base: '300px', md: '475px' });
 
   const cards = [
     {
@@ -45,8 +46,8 @@ export default function CaptionCarousel() {
     {
       title: 'Descubre las Mejores Bicicletas del Año',
       text: '',
-      color: 'White',
-      color_oposite: 'Black',
+      color: 'Black',
+      color_oposite: 'White',
       image: bicicleta_photo,
     },
     {
@@ -60,78 +61,87 @@ export default function CaptionCarousel() {
 
   return (
     <>
-    <Box position={'relative'} height={carouselHeight} width="100%" overflow={'hidden'}>
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-      />
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-      />
-      <IconButton
-        aria-label="left-arrow"
-        variant="ghost"
-        position="absolute"
-        left={side}
-        top={top}
-        transform={'translate(0%, -50%)'}
-        zIndex={2}
-        onClick={() => slider?.slickPrev()}>
-        <BiLeftArrowAlt size="40px" />
-      </IconButton>
-      <IconButton
-        aria-label="right-arrow"
-        variant="ghost"
-        position="absolute"
-        right={side}
-        top={top}
-        transform={'translate(0%, -50%)'}
-        zIndex={2}
-        onClick={() => slider?.slickNext()}>
-        <BiRightArrowAlt size="40px" />
-      </IconButton>
-      <Slider {...settings} ref={(slider) => setSlider(slider)}>
-        {cards.map((card, index) => (
-          <Box
-            key={index}
-            height={carouselHeight} // Ajusta la altura de la diapositiva
-            position="relative"
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-            backgroundSize="cover"
-            backgroundImage={`url(${card.image})`}
-          >
-            <Container size="container.lg" height={carouselHeight} position="relative">
-              <Stack
-                spacing={6}
-                w={'full'}
-                maxW={'lg'}
-                position="absolute"
-                top="50%"
-                transform="translate(0, -50%)"
+      <Box position={'relative'} height={carouselHeight} width="100%" overflow={'hidden'}>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+        {/* Flecha izquierda */}
+        <IconButton
+          aria-label="left-arrow"
+          variant="ghost"
+          position="absolute"
+          left={side}
+          top={top}
+          transform={'translate(0%, -50%)'}
+          zIndex={2}
+          onClick={() => slider?.slickPrev()}
+        >
+          <BiLeftArrowAlt size="30px" />
+        </IconButton>
+        {/* Flecha derecha */}
+        <IconButton
+          aria-label="right-arrow"
+          variant="ghost"
+          position="absolute"
+          right={side}
+          top={top}
+          transform={'translate(0%, -50%)'}
+          zIndex={2}
+          onClick={() => slider?.slickNext()}
+        >
+          <BiRightArrowAlt size="30px" />
+        </IconButton>
+        <Slider {...settings} ref={(slider) => setSlider(slider)}>
+          {cards.map((card, index) => (
+            <Box
+              key={index}
+              height={carouselHeight}
+              position="relative"
+              backgroundPosition="center"
+              backgroundRepeat="no-repeat"
+              backgroundSize="cover"
+              backgroundImage={`url(${card.image})`}
+            >
+              <Container
+                size="container.lg"
+                height="100%"
+                position="relative"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
               >
-                <Heading
-                  fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
-                  color="White"
-                  style={{
-                    textShadow: '2px 2px 2px black, -2px -2px 2px black, 2px -2px 2px black, -2px 2px 2px black',
-                  }}
+                <Stack
+                  spacing={4}
+                  w={'full'}
+                  maxW={{ base: '90%', md: 'lg' }}
+                  textAlign="center"
+                  color={card.color_oposite}
+                  bg="rgba(0, 0, 0, 0.5)" // Fondo semitransparente
+                  borderRadius="md"
+                  p={4}
                 >
-                  {card.title}
-                </Heading>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
-                  {card.text}
-                </Text>
-              </Stack>
-            </Container>
-          </Box>
-        ))}
-      </Slider>
-    </Box>
-    <Box height="4" />
+                  <Heading
+                    fontSize={{ base: '2xl', md: '4xl' }}
+                    style={{
+                      textShadow: '2px 2px 4px black',
+                    }}
+                  >
+                    {card.title}
+                  </Heading>
+                  <Text fontSize={{ base: 'sm', md: 'md' }}>{card.text}</Text>
+                </Stack>
+              </Container>
+            </Box>
+          ))}
+        </Slider>
+      </Box>
     </>
   );
 }

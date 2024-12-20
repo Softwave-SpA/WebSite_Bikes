@@ -35,6 +35,10 @@ export default function DrawerShop() {
     localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
+  // Paleta de colores para el botón "Guardar", similar a la del navbar
+  const buttonColor = useColorModeValue('#2D284A', '#BEBDC0');  // Color de fondo para el botón
+  const buttonTextColor = useColorModeValue('#BEBDC0', '#2D284A');  // Color del texto
+
   return (
     <>
       <Button
@@ -42,7 +46,8 @@ export default function DrawerShop() {
         color={useColorModeValue('#2D284A', '#BEBDC0')}
         bg={useColorModeValue('#BEBDC0', '#2D284A')}
         onClick={onOpen}
-        leftIcon={<FaShoppingCart />}>
+        leftIcon={<FaShoppingCart />}
+      >
         Carrito
       </Button>
       <Drawer
@@ -82,9 +87,15 @@ export default function DrawerShop() {
 
           <DrawerFooter>
             <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
+              Cancelar
             </Button>
-            <Button colorScheme='blue'>Guardar</Button>
+            <Button
+              bg={buttonColor}
+              color={buttonTextColor}
+              _hover={{ bg: '#1C6FEB' }} // Color de hover
+            >
+              Guardar
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import {
 	Box,
-  	Flex,
-  	useColorModeValue,
+	Flex,
+	useColorModeValue,
 	SimpleGrid
 } from '@chakra-ui/react';
 import DividerText from '../components/dividerText';
@@ -14,10 +14,10 @@ import ContactForm from '../components/contactForm';
 import ContactInfo from '../components/contactInfo';
 
 function Services() {
-	const contactRef = useRef(null); // Crea la referencia
-  
+	const contactRef = useRef(null);
+
 	const scrollToContact = () => {
-	  contactRef.current.scrollIntoView({ behavior: 'smooth' });
+		contactRef.current.scrollIntoView({ behavior: 'smooth' });
 	};
 
 	return (
@@ -27,51 +27,77 @@ function Services() {
 			justify={'center'}
 			direction="column"
 			bg={useColorModeValue('#0000', '#0000')}
-			py={10}>	
-			<DividerText 
-				title={"Servicios de Mantención"} 
+			py={10}>
+			<DividerText
+				title={"Servicios de Mantención"}
 				subtitle={"Selecciona el plan que mejor se adapte a tus necesidades"}
+				subtitleProps={{
+					textAlign: 'center',
+					maxW: '90%',
+					mx: 'auto',
+					wordBreak: 'break-word',
+				}}
 			/>
-			<Box maxW="7xl" py="10" mx="auto">
-				<SimpleGrid columns={[1, , , 3]} gap={[16, 8]}>
+			<Box maxW="7xl" py="10" mx="auto" px={[4, 6, 8]}>
+				<SimpleGrid
+					columns={[1, 2, 3]}
+					gap={[8, 6, 8]}
+					alignItems="center"
+					gridAutoRows={{ base: 'auto', md: '1fr' }} // Ajustar filas de igual altura en PC
+				>
 					{generalServices.map((service, index) => (
-					<PricingCard
-						key={index}
-						title={service.title}
-						price={service.price}
-						features={service.features}
-              			onScheduleClick={scrollToContact}
-					/>
+						<PricingCard
+							key={index}
+							title={service.title}
+							price={service.price}
+							features={service.features}
+							onScheduleClick={scrollToContact}
+						/>
 					))}
-					
 				</SimpleGrid>
 			</Box>
-			<DividerText title={"Mantenciones Específicas"}/>
-			<Box maxW="5xl" py="10" mx="auto">
-				<SimpleGrid columns={[1, , 2]} gap={[16, 8]}>
+			<DividerText title={"Mantenciones Específicas"} />
+			<Box maxW="5xl" py="10" mx="auto" px={[4, 6, 8]}>
+				<SimpleGrid
+					columns={[1, 1, 2]}
+					gap={[8, 6, 8]}
+					alignItems="center"
+					gridAutoRows={{ base: 'auto', md: '1fr' }} // Igual ajuste para esta sección
+				>
 					{specificServices.map((service, index) => (
-					<PricingCard
-						key={index}
-						title={service.title}
-						price={service.price}
-						features={service.features}
-						onScheduleClick={scrollToContact}
-					/>
+						<PricingCard
+							key={index}
+							title={service.title}
+							price={service.price}
+							features={service.features}
+							onScheduleClick={scrollToContact}
+						/>
 					))}
 				</SimpleGrid>
 			</Box>
-			<DividerText title={"Taller de Ciclismo"}/>
-			<Box maxW="3xl" py="10" mx="auto">
-				<WorkshopCard/>
+			<DividerText title={"Taller de Ciclismo"} />
+			<Box maxW="3xl" py="10" mx="auto" px={[4, 6, 8]}>
+				<WorkshopCard />
 			</Box>
-			<Box maxW="5xl" py="5" mx="auto" ref={contactRef}>
-			<DividerText 
-				title={"¡Agendemos Ahora mismo!"} 
-				subtitle={"Un vez identificado el servicio que necesitas para tu bicicleta, contáctanos y te responderemos a la brevedad."}
-			/>
-				<SimpleGrid py='10' columns={[1, , 2]} gap={[16, 8]} alignItems="start">
-					<ContactForm/>
-					<ContactInfo/>
+			<Box maxW="5xl" py="5" mx="auto" px={[4, 6, 8]} ref={contactRef}>
+				<DividerText
+					title={"¡Agendemos Ahora mismo!"}
+					subtitle={"Un vez identificado el servicio que necesitas para tu bicicleta, contáctanos y te responderemos a la brevedad."}
+					subtitleProps={{
+						textAlign: 'center',
+						maxW: '90%',
+						mx: 'auto',
+						wordBreak: 'break-word',
+					}}
+				/>
+				<SimpleGrid
+					py="10"
+					columns={[1, 1, 2]}
+					gap={[8, 6, 8]}
+					alignItems="start"
+				>
+					<ContactForm />
+					<ContactInfo />
 				</SimpleGrid>
 			</Box>
 		</Flex>
