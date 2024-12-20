@@ -17,11 +17,13 @@ import {
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { FaShoppingCart, FaTrash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
 export default function DrawerShop() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate(); // Hook para redirección
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -35,9 +37,10 @@ export default function DrawerShop() {
     localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
-  // Paleta de colores para el botón "Guardar", similar a la del navbar
-  const buttonColor = useColorModeValue('#2D284A', '#BEBDC0');  // Color de fondo para el botón
-  const buttonTextColor = useColorModeValue('#BEBDC0', '#2D284A');  // Color del texto
+  // Redirigir a la página de checkout al hacer clic en "Guardar"
+  const handleSave = () => {
+    navigate('/checkout'); // Redirige a /checkout
+  };
 
   return (
     <>
@@ -90,9 +93,10 @@ export default function DrawerShop() {
               Cancelar
             </Button>
             <Button
-              bg={buttonColor}
-              color={buttonTextColor}
+              bg={useColorModeValue('#2D284A', '#BEBDC0')}
+              color={useColorModeValue('#BEBDC0', '#2D284A')}
               _hover={{ bg: '#1C6FEB' }} // Color de hover
+              onClick={handleSave} // Llamar a la función de redirección
             >
               Guardar
             </Button>
