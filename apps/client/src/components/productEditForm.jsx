@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const EditProductForm = () => {
+const ProductEditForm = () => {
   const { id } = useParams(); // Obtener el ID del producto desde los parámetros de la URL
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

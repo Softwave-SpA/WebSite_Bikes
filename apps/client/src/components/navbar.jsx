@@ -85,6 +85,13 @@ export default function NavBar() {
                 objectFit="contain"
               />
             </Link>
+            <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
+              {Links.map((link) => (
+                <NavLink key={link.name} to={link.path}>
+                  {link.name}
+                </NavLink>
+              ))}
+            </HStack>
           </HStack>
 
           {/* Botón del carrito */}

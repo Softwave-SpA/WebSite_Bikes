@@ -1,60 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Box,
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  ButtonGroup,
+  Spinner,
+  Box,
   IconButton,
   Input,
-  Spinner,
   Flex,
-  Heading,
   useToast,
+  ButtonGroup,
+  Heading,
   Button,
-  Image,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-} from "@chakra-ui/react";
-import ProductForm from './productForm';
-import ProductEditForm from './productEditForm';
-import { BsBoxArrowUpRight, BsFillTrashFill, BsArrowUp, BsArrowDown, BsPrinter } from "react-icons/bs";
-import { useNavigate } from 'react-router-dom';
+} from '@chakra-ui/react';
+import { BsBoxArrowUpRight, BsFillTrashFill, BsArrowUp, BsArrowDown } from 'react-icons/bs';
+import { ProductForm, ProductEditForm } from './productForm';
 import axios from 'axios';
 
-const ProductTable = () => {
+const ProductsTable = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortConfig, setSortConfig] = useState({ key: '', direction: ''});
+  const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
   const [isCreating, setIsCreating] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const toast = useToast();
-  const navigate = useNavigate();
 
   const header = [
-    { label: "Imagen", key: "" },
-    { label: "Nombre", key: "nombre" },
-    { label: "Categoria", key: "categoria" },
-    { label: "Stock", key: "stock" },
-    { label: "Precio", key: "precio" },
-    { label: "Acciones", key: "" },
+    { label: 'N°', key: 'id' },
+    { label: 'Producto', key: 'name' },
+    { label: 'Código', key: 'productCode' },
+    { label: 'Categoría', key: 'category' },
+    { label: 'Precio S/IVA', key: 'costPrice' },
+    { label: 'Ganancia%', key: 'profitPercentage' },
+    { label: 'Precio Final', key: 'sellingPrice' },
+    { label: 'Acciones', key: '' },
   ];
-
-  useEffect(() => {
-    // Obtener productos desde la base de datos
-    axios.get('/server/products')
-      .then(response => setProducts(response.data))
-      .catch(error => console.error(error));
-  }, []);
 
   const fetchProducts = async () => {
     try {
@@ -62,11 +53,11 @@ const ProductTable = () => {
       setProducts(response.data);
       setFilteredProducts(response.data);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
       toast({
-        title: "Error",
-        description: "No se pudieron obtener los productos.",
-        status: "error",
+        title: 'Error',
+        description: 'No se pudieron obtener los productos.',
+        status: 'error',
         duration: 3000,
         isClosable: true,
       });
@@ -117,7 +108,8 @@ const ProductTable = () => {
     setSearchTerm(term);
     const filtered = products.filter(
       (product) =>
-        product.name.toLowerCase().includes(term)
+        product.name.toLowerCase().includes(term) ||
+        product.productCode.toLowerCase().includes(term)
     );
     setFilteredProducts(filtered);
   };
@@ -214,7 +206,8 @@ const ProductTable = () => {
           </Button>
         </Flex>   
       </Flex>
-      <Table w="full" >
+
+      <Table w="full">
         <Thead>
           <Tr>
             {header.map(({ label, key }) => (
@@ -239,22 +232,18 @@ const ProductTable = () => {
                 </Flex>
               </Th>
             ))}
-          </Tr>        </Thead>
+          </Tr>
+        </Thead>
         <Tbody>
-          {products.map((product) => (
-            <Tr key={product._id}>
-              <Td>
-                <Image
-                  src={`http://localhost:3000/uploads/${product.imagen}`}
-                  alt={product.nombre}
-                  boxSize="100px"
-                  objectFit="cover"
-                />
-              </Td>
-              <Td>{product.nombre}</Td>
-              <Td>{product.categoria}</Td>
-              <Td>{product.stock}</Td>
-              <Td>${product.precio}</Td>
+          {filteredProducts.map((product) => (
+            <Tr key={product.id}>
+              <Td>{product.id}</Td>
+              <Td>{product.name}</Td>
+              <Td>{product.productCode}</Td>
+              <Td>{product.category}</Td>
+              <Td>$ {product.costPrice}</Td>
+              <Td>{product.profitPercentage} %</Td>
+              <Td>$ {product.sellingPrice}</Td>
               <Td>
                 <ButtonGroup variant="solid" size="sm" spacing={3}>
                   <IconButton
@@ -266,7 +255,7 @@ const ProductTable = () => {
                   <IconButton
                     icon={<BsFillTrashFill />}
                     colorScheme="red"
-                    onClick={() => handleDelete(product._id)}
+                    onClick={() => handleDelete(product.id)}
                     aria-label="Eliminar producto"
                   />
                 </ButtonGroup>
@@ -279,4 +268,4 @@ const ProductTable = () => {
   );
 };
 
-export default ProductTable;
+export default ProductsTable;
