@@ -61,65 +61,11 @@ export default function Dashboard() {
     );
   };
 
-  const SidebarContent = (props) => (
-    <Box
-      as="nav"
-      pos="fixed"
-      top="0"
-      left="0"
-      zIndex="sticky"
-      h="full"
-      pb="10"
-      overflowX="hidden"
-      overflowY="auto"
-      bg="white"
-      _dark={{
-        bg: "gray.800",
-      }}
-      border
-      color="inherit"
-      borderRightWidth="1px"
-      w="55"
-      {...props}
-    >
-      <Flex direction="column" h="full" align="center">
-        <Box py="10" />
-        <Box px="4" py="5">
-          <Avatar boxSize="100px" src={Logo} />
-        </Box>
-        <Flex
-          direction="column"
-          as="nav"
-          fontSize="sm"
-          color="gray.600"
-          aria-label="Main Navigation"
-          flex="1"
-        >
-          <NavItem icon={MdInventory}>Inventario</NavItem>
-        </Flex>
-        <Box px="4" py="5" align="center">
-            <Button colorScheme="teal" onClick={() => setShowForm(!showForm)}>
-                {showForm ? 'Ver productos' : 'Agregar producto'}
-            </Button>
-        </Box>
-      </Flex>
-    </Box>
-  );
-
   return (
-    <Box as="section" bg="gray.50" minH="100vh">
-            <SidebarContent
-        display={{
-          base: "none",
-          md: "unset",
-        }}
-      />
-
-      <Box ml={{ base: 0, md: 60 }} transition=".3s ease">
+    <Box as="section" bg="gray.50" minH="80vh">
         <Box as="main" p="4">
-          <Box mt={4}>
-            {showForm ? <ProductForm /> : <ProductTable />}
-          </Box>
+          <Box mt={4} maxW="1000px" mx="auto" boxShadow="md" rounded="md">
+            <ProductTable />
         </Box>
       </Box>
     </Box>

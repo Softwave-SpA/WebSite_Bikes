@@ -26,7 +26,6 @@ import {
 import ProductForm from './productForm';
 import ProductEditForm from './productEditForm';
 import { BsBoxArrowUpRight, BsFillTrashFill, BsArrowUp, BsArrowDown, BsPrinter } from "react-icons/bs";
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ProductTable = () => {
@@ -38,7 +37,6 @@ const ProductTable = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const toast = useToast();
-  const navigate = useNavigate();
 
   const header = [
     { label: "Imagen", key: "" },

@@ -170,4 +170,4 @@ const ProductEditForm = () => {
   );
 };
 
-export default EditProductForm;
+export default ProductEditForm;
