@@ -22,6 +22,9 @@ export class Product {
 
   @Prop({ required: true })
   stock: number;
+
+  @Prop({ required: true, enum: ['Componentes', 'Mantenimiento', 'Protecciones', 'Bicicletas', 'Ropa y Calzado', 'Herramientas', 'Otros'] })
+  categoria: string;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

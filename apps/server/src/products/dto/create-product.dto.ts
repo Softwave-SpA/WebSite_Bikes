@@ -18,5 +18,8 @@ export class CreateProductDto {
   caracteristicas?: { clave: string; valor: string }[];
 
   @IsOptional()
-  imagen?: string; // Aquí se almacena el nombre de la imagen
+  imagen?: string;
+
+  @IsString()
+  categoria: string;
 }

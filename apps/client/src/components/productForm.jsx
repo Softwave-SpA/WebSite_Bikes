@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const ProductForm = () => {
+const ProductForm = ({ onProductUpdated }) => {
   const [formData, setFormData] = useState({
     nombre: "",
     precio: "",
@@ -76,6 +76,7 @@ const ProductForm = () => {
         isClosable: true,
       });
       console.log(response.data);
+      onProductUpdated(formData);
     } catch (error) {
       console.error(error);
       toast({

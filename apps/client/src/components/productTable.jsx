@@ -135,7 +135,7 @@ const ProductTable = () => {
       if (valueA > valueB) return direction === 'asc' ? 1 : -1;
       return 0;
     });
-    setFilteredProducts(sorted);
+    setFilteredProducts([...sorted]);
   };
 
   if (loading) {
@@ -239,7 +239,7 @@ const ProductTable = () => {
             ))}
           </Tr>        </Thead>
         <Tbody>
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <Tr key={product._id}>
               <Td>
                 <Image
