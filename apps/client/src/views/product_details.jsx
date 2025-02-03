@@ -6,25 +6,22 @@ import {
   Text,
   Image,
   Flex,
-  VStack,
   Button,
   Heading,
   SimpleGrid,
-  StackDivider,
   List,
   ListItem,
-  IconButton,
   Input,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { MdLocalShipping, MdAddShoppingCart } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
-import products from '../assets/ej_products';
+import products from '../assets/ej_products2'; // Asegúrate de que 'ej_products' tenga el formato correcto
 import CartModal from '../components/cartModal';
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const product = products.find((product) => product.id === parseInt(id));
+  const product = products.find((product) => product.id.toString() === id);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
@@ -46,8 +43,8 @@ export default function ProductDetails() {
         <Flex justify="center">
           <Image
             rounded="lg"
-            src={product.image}
-            alt={product.name}
+            src={product.imagen} // Asegúrate de que el campo sea correcto
+            alt={product.nombre}
             boxSize={{ base: '100%', sm: '400px', lg: '500px' }}
             objectFit="cover"
           />
@@ -55,20 +52,22 @@ export default function ProductDetails() {
 
         {/* Detalles del producto */}
         <Stack spacing={6}>
-          <Heading fontSize={{ base: '2xl', md: '4xl' }}>{product.name}</Heading>
+          <Heading fontSize={{ base: '2xl', md: '4xl' }}>{product.nombre}</Heading>
           <Text fontSize="2xl" color={useColorModeValue('gray.800', 'gray.400')}>
-            ${product.price.toFixed(2)}
+            ${product.precio}
           </Text>
 
           <Text fontSize="lg" color={useColorModeValue('gray.600', 'gray.300')}>
-            {product.description || 'Este producto es de alta calidad y perfecto para ti.'}
+            {product.descripcion || 'Este producto es de alta calidad y perfecto para ti.'}
           </Text>
 
           <Box>
             <Text fontSize="lg" fontWeight="bold" mb={2}>Características:</Text>
             <List spacing={2}>
-              {product.features.map((feature, index) => (
-                <ListItem key={index}>{feature}</ListItem>
+              {product.features?.map((feature, index) => (
+                <ListItem key={index}>
+                  <strong>{feature.clave}:</strong> {feature.valor}
+                </ListItem>
               ))}
             </List>
           </Box>

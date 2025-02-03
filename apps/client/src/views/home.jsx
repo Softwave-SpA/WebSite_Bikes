@@ -7,10 +7,11 @@ import {
 
 import CaptionCarousel from '../components/carrusel.jsx';
 import Card from '../components/card.jsx';
-import products from '../assets/ej_products.jsx';
+import products from '../assets/ej_products2.jsx';
 import DividerBar from '../components/dividerBar.jsx';
 import generalServices from '../assets/generalServices.jsx';
 import PricingCard from '../components/pricingCard.jsx';
+import ProductCard from '../components/card2.jsx';
 
 function Home() {
   return (
@@ -25,6 +26,7 @@ function Home() {
         direction="column"
         bg={useColorModeValue('gray.50', 'gray.800')}
         px={{ base: 4, md: 8 }}
+        py="10"
       >
         <DividerBar title="Productos Destacados" />
         <Flex
@@ -34,15 +36,7 @@ function Home() {
           style={{ gap: '20px' }}
         >
           {products.slice(0, 3).map((product) => (
-            <Card
-              key={product.id}
-              image={product.image}
-              // brand={product.brand}
-              title={product.name}
-              price={product.price}
-              oldPrice={product.oldPrice}
-              productId={product.id}
-            />
+            <ProductCard product={product}/>
           ))}
         </Flex>
         <DividerBar title="Servicios Integrales" />

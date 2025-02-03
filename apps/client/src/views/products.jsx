@@ -4,8 +4,9 @@ import {
 } from '@chakra-ui/react';
 
 import Card from '../components/card';
-import products from '../assets/ej_products';
+import products from '../assets/ej_products2';
 import DividerBar from '../components/dividerBar';
+import ProductCard from '../components/card2';
 
 function Products() {
   return (
@@ -23,16 +24,16 @@ function Products() {
         maxW="1200px"
         style={{ gap: '20px' }}>
         {products.map((product) => (
-          <Card
-            key={product.id}
-            image={product.image}
-            brand={product.brand}
-            title={product.name}
-            price={product.price}
-            oldPrice={product.oldPrice}
-            productId={product.id}
-          />
-          
+          // <Card
+          //   key={product.id}
+          //   image={product.image}
+          //   brand={product.brand}
+          //   title={product.name}
+          //   price={product.price}
+          //   oldPrice={product.oldPrice}
+          //   productId={product.id}
+          // />
+          <ProductCard product={product}/>
         ))}
       </Flex>
     </Flex>

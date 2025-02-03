@@ -73,8 +73,8 @@ export default function DrawerShop() {
                   <Box key={index} p={4} borderWidth='1px' borderRadius='lg' w='100%'>
                     <HStack justifyContent="space-between">
                       <Box>
-                        <Text fontWeight='bold'>{item.name}</Text>
-                        <Text>${item.price}</Text>
+                        <Text fontWeight='bold'>{item.nombre}</Text>
+                        <Text>${item.precio}</Text>
                       </Box>
                       <IconButton
                         aria-label='Eliminar artículo'
