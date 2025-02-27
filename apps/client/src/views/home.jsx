@@ -3,17 +3,54 @@ import {
   useColorModeValue,
   Box,
   SimpleGrid,
+  Spinner,
+  useToast,
 } from '@chakra-ui/react';
-
+import { useState, useEffect } from 'react';
 import CaptionCarousel from '../components/carrusel.jsx';
-import Card from '../components/card.jsx';
-import products from '../assets/ej_products2.jsx';
+// import products from '../assets/ej_products2.jsx';
 import DividerBar from '../components/dividerBar.jsx';
 import generalServices from '../assets/generalServices.jsx';
 import PricingCard from '../components/pricingCard.jsx';
 import ProductCard from '../components/card2.jsx';
+import axios from 'axios';
 
 function Home() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const toast = useToast();
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('/server/products');
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      toast({
+        title: "Error",
+        description: "No se pudieron obtener los productos.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Efecto para cargar los productos al montar el componente
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <Spinner size="xl" />
+      </Box>
+    );
+  }
+
   return (
     <>
       <Box width="100vw" mx="0" px="0">

@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react";
 import ProductForm from './productForm';
 import ProductEditForm from './productEditForm';
-import { BsBoxArrowUpRight, BsFillTrashFill, BsArrowUp, BsArrowDown, BsPrinter } from "react-icons/bs";
+import { BsBoxArrowUpRight, BsFillTrashFill, BsArrowUp, BsArrowDown } from "react-icons/bs";
 import axios from 'axios';
 
 const ProductTable = () => {
@@ -46,13 +46,6 @@ const ProductTable = () => {
     { label: "Precio", key: "precio" },
     { label: "Acciones", key: "" },
   ];
-
-  useEffect(() => {
-    // Obtener productos desde la base de datos
-    axios.get('/server/products')
-      .then(response => setProducts(response.data))
-      .catch(error => console.error(error));
-  }, []);
 
   const fetchProducts = async () => {
     try {

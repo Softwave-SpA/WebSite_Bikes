@@ -28,18 +28,13 @@ function Services() {
 			direction="column"
 			bg={useColorModeValue('#0000', '#0000')}
 			py={10}>
-			<DividerText
-				title={"Servicios de Mantención"}
-				subtitle={"Selecciona el plan que mejor se adapte a tus necesidades"}
-				subtitleProps={{
-					textAlign: 'center',
-					maxW: '90%',
-					mx: 'auto',
-					wordBreak: 'break-word',
-				}}
-			/>
-			<Box maxW="7xl" py="10" mx="auto" px={[4, 6, 8]}>
+			<Box maxW="7xl" mx="auto" px={[4, 6, 8]}>			
+				<DividerText
+					title={"Servicios de Mantención"}
+					subtitle={"Selecciona el plan que mejor se adapte a tus necesidades"}
+				/>
 				<SimpleGrid
+					py="1"
 					columns={[1, 2, 3]}
 					gap={[8, 6, 8]}
 					alignItems="center"
@@ -56,8 +51,8 @@ function Services() {
 					))}
 				</SimpleGrid>
 			</Box>
-			<DividerText title={"Mantenciones Específicas"} />
 			<Box maxW="5xl" py="10" mx="auto" px={[4, 6, 8]}>
+				<DividerText title={"Mantenciones Específicas"} />
 				<SimpleGrid
 					columns={[1, 1, 2]}
 					gap={[8, 6, 8]}
@@ -75,20 +70,15 @@ function Services() {
 					))}
 				</SimpleGrid>
 			</Box>
-			<DividerText title={"Taller de Ciclismo"} />
-			<Box maxW="3xl" py="10" mx="auto" px={[4, 6, 8]}>
+			
+			<Box maxW="3xl" py="5" mx="auto" px={[4, 6, 8]}>
+				<DividerText title={"Taller de Ciclismo"} />
 				<WorkshopCard />
 			</Box>
-			<Box maxW="5xl" py="5" mx="auto" px={[4, 6, 8]} ref={contactRef}>
+			<Box py="10" mx="auto" ref={contactRef}>
 				<DividerText
 					title={"¡Agendemos Ahora mismo!"}
 					subtitle={"Un vez identificado el servicio que necesitas para tu bicicleta, contáctanos y te responderemos a la brevedad."}
-					subtitleProps={{
-						textAlign: 'center',
-						maxW: '90%',
-						mx: 'auto',
-						wordBreak: 'break-word',
-					}}
 				/>
 				<SimpleGrid
 					py="10"

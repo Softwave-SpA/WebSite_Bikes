@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -11,19 +11,48 @@ import {
   SimpleGrid,
   List,
   ListItem,
+  Spinner,
   Input,
+  useToast,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { MdLocalShipping, MdAddShoppingCart } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
-import products from '../assets/ej_products2'; // Asegúrate de que 'ej_products' tenga el formato correcto
 import CartModal from '../components/cartModal';
+import axios from 'axios';
 
 export default function ProductDetails() {
-  const { id } = useParams();
-  const product = products.find((product) => product.id.toString() === id);
+  // const product = products.find((product) => product.id.toString() === id);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const { id } = useParams();
+  const toast = useToast();
+  
+  // Función para obtener los productos
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`/server/products/${id}`);
+      setProduct(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      toast({
+        title: "Error",
+        description: "No se pudieron obtener los productos.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Efecto para cargar los productos al montar el componente
+  useEffect(() => {
+    fetchProduct();
+  }, [id]);
 
   if (!product) {
     return <Text>Producto no encontrado</Text>;
@@ -36,6 +65,30 @@ export default function ProductDetails() {
     setIsModalOpen(true);
   };
 
+  // Mostrar spinner mientras se cargan los productos
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <Spinner size="xl" />
+      </Box>
+    );
+  }
+
+  // Parsear características si es un string
+  const parseFeatures = (features) => {
+    if (typeof features === 'string') {
+      try {
+        return JSON.parse(features); // Convierte el string a un array
+      } catch (error) {
+        console.error("Error parsing features:", error);
+        return []; // Si hay un error, devuelve un array vacío
+      }
+    }
+    return Array.isArray(features) ? features : []; // Si ya es un array, úsalo directamente
+  };
+
+  const features = parseFeatures(product.caracteristicas);
+
   return (
     <Container maxW={'6xl'} py={10}>
       <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
@@ -43,7 +96,7 @@ export default function ProductDetails() {
         <Flex justify="center">
           <Image
             rounded="lg"
-            src={product.imagen} // Asegúrate de que el campo sea correcto
+            src={`http://localhost:3000/uploads/${product.imagen}`}
             alt={product.nombre}
             boxSize={{ base: '100%', sm: '400px', lg: '500px' }}
             objectFit="cover"
@@ -62,9 +115,12 @@ export default function ProductDetails() {
           </Text>
 
           <Box>
-            <Text fontSize="lg" fontWeight="bold" mb={2}>Características:</Text>
+            <Heading fontSize={{ base: 'xl', md: '2xl' }} mb={2}>Características</Heading>
             <List spacing={2}>
-              {product.features?.map((feature, index) => (
+              <ListItem>
+                <strong>Categoría:</strong> {product.categoria}
+              </ListItem>
+              {features.map((feature, index) => (
                 <ListItem key={index}>
                   <strong>{feature.clave}:</strong> {feature.valor}
                 </ListItem>

@@ -10,7 +10,6 @@ import {
   Select,
   Stack,
   useToast,
-  InputGroup,
   Heading,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -25,42 +24,11 @@ const ContactForm = () => {
     imagenes: null,
   });
 
-  const fileInputRef = useRef(null);
   const toast = useToast();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFileChange = (e) => {
-    const selectedFiles = e.target.files;
-    const validFormats = [
-      "image/jpeg",
-      "image/png",
-      "image/gif",
-      "image/bmp",
-      "image/webp",
-      "image/svg+xml",
-    ];
-    
-    // Verificación de cada archivo seleccionado
-    for (let i = 0; i < selectedFiles.length; i++) {
-      if (!validFormats.includes(selectedFiles[i].type)) {
-        toast({
-          title: "Formato de archivo no válido",
-          description: "Por favor, adjunta solo imágenes en formato JPG, JPEG, PNG, GIF, BMP, WEBP o SVG.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-        // Limpiar la bandeja de archivos adjuntos
-        fileInputRef.current.value = "";
-        return;
-      }
-    }
-
-    setFormData({ ...formData, imagenes: selectedFiles });
   };
 
   const handleSubmit = async (e) => {
@@ -74,13 +42,7 @@ const ContactForm = () => {
       formDataToSend.append('asunto', formData.asunto);
       formDataToSend.append('comentarios', formData.comentarios);
   
-      if (formData.imagenes) {
-        for (let i = 0; i < formData.imagenes.length; i++) {
-          formDataToSend.append('imagenes', formData.imagenes[i]);
-        }
-      }
-  
-      await axios.post('http://localhost:3000/server/email', formDataToSend, {
+      await axios.post('http://localhost:3000/server/email/contact', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -155,6 +117,7 @@ const ContactForm = () => {
               <option>Mantención Full</option>
               <option>Mantención Fixie</option>
               <option>Mantención Triatlón</option>
+              <option>Compra de Productos</option>
               <option>Evaluación</option>
               <option>Consulta</option>
               <option>Otros</option>
@@ -171,20 +134,6 @@ const ContactForm = () => {
             />
           </FormControl>
 
-          <FormControl id="imagenes">
-            <FormLabel>Adjuntar Imágenes (opcional)</FormLabel>
-            <InputGroup>
-              <Input
-                type="file"
-                name="imagenes"
-                onChange={handleFileChange}
-                multiple
-                accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg"
-                ref={fileInputRef}
-              />
-            </InputGroup>
-          </FormControl>
-
           <Button type="submit" colorScheme="teal" size="lg" w="full">
             Enviar
           </Button>
@@ -195,4 +144,3 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
-

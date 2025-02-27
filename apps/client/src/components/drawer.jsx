@@ -40,6 +40,7 @@ export default function DrawerShop() {
   // Redirigir a la página de checkout al hacer clic en "Guardar"
   const handleSave = () => {
     navigate('/checkout'); // Redirige a /checkout
+    onClose();
   };
 
   return (
@@ -74,7 +75,8 @@ export default function DrawerShop() {
                     <HStack justifyContent="space-between">
                       <Box>
                         <Text fontWeight='bold'>{item.nombre}</Text>
-                        <Text>${item.precio}</Text>
+                        <Text>Cantidad: {item.quantity}</Text>
+                        <Text>Total: ${item.precio * item.quantity}</Text>
                       </Box>
                       <IconButton
                         aria-label='Eliminar artículo'
@@ -98,7 +100,7 @@ export default function DrawerShop() {
               _hover={{ bg: '#1C6FEB' }} // Color de hover
               onClick={handleSave} // Llamar a la función de redirección
             >
-              Guardar
+              Comprar
             </Button>
           </DrawerFooter>
         </DrawerContent>

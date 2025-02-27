@@ -6,10 +6,15 @@ import { EmailService } from './email.service';
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
-  @Post()
-  @UseInterceptors(FilesInterceptor('imagenes'))
-  async submitEmailForm(@Body() formData: any, @UploadedFiles() imagenes: Express.Multer.File[]) {
-    await this.emailService.sendContactEmail(formData, imagenes);
-    return { message: 'Correo enviado exitosamente' };
+  @Post('contact')
+  async submitContactForm(@Body() formData: any) {
+    await this.emailService.sendContactEmail(formData);
+    return { message: 'Correo de contacto enviado exitosamente' };
+  }
+
+  @Post('order')
+  async submitOrder(@Body() orderData: any) {
+    await this.emailService.sendOrderEmail(orderData);
+    return { message: 'Orden de compra enviada exitosamente' };
   }
 }

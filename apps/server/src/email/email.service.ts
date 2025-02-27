@@ -16,7 +16,7 @@ export class EmailService {
     });
   }
 
-  async sendContactEmail(formData: any, imagenes: Express.Multer.File[]) {
+  async sendContactEmail(formData: any) {
     const emailOptions = {
       from: formData.correo,
       to: this.configService.get<string>('EMAIL_USER'),
@@ -27,13 +27,27 @@ export class EmailService {
         Asunto: ${formData.asunto}
         Comentarios: ${formData.comentarios}
       `,
-      attachments: imagenes?.map((file) => ({
-        filename: file.originalname,
-        content: file.buffer,
-      })),
+    };
+
+    return this.transporter.sendMail(emailOptions);
+  }
+
+  async sendOrderEmail(orderData: any) {
+    const emailOptions = {
+      from: orderData.email,
+      to: this.configService.get<string>('EMAIL_USER'),
+      subject: `Nueva orden de compra de ${orderData.name}`,
+      text: `
+        Nombre: ${orderData.name}
+        Dirección: ${orderData.address}
+        Email: ${orderData.email}
+        Teléfono: ${orderData.phone}
+        Productos:
+        ${orderData.cartItems.map((item) => `- ${item.nombre}: Cantidad: ${item.quantity}, Subtotal: $${item.precio}`).join('\n')}
+        Total: $${orderData.totalPrice}
+      `,
     };
 
     return this.transporter.sendMail(emailOptions);
   }
 }
-
