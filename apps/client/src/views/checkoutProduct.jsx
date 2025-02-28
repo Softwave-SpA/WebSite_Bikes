@@ -19,7 +19,7 @@ import {
 import DividerText from '../components/dividerText';
 import axios from 'axios';
 
-const Checkout = () => {
+const CheckoutProduct = () => {
   const [formData, setFormData] = useState({
     name: '',
     address: '',
@@ -198,4 +198,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default CheckoutProduct;

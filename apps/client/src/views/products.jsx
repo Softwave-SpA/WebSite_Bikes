@@ -83,7 +83,14 @@ function Products() {
   }
 
   return (
-    <Flex direction="column" align="center" py={10} bg={useColorModeValue('#0000', 'gray.700')}>
+    <Flex 
+      minH={'50vh'}
+      direction="column" 
+      p={8}
+      align="center" 
+      py={10} 
+      bg={useColorModeValue('#0000', 'gray.700')}
+    >
       <DividerText 
         title="Productos" 
         subtitle="Explora nuestra selección de bicicletas y accesorios. Encuentra lo que necesitas para tu próxima aventura." 

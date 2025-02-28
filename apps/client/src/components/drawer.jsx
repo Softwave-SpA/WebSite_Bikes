@@ -39,7 +39,7 @@ export default function DrawerShop() {
 
   // Redirigir a la página de checkout al hacer clic en "Guardar"
   const handleSave = () => {
-    navigate('/checkout'); // Redirige a /checkout
+    navigate('/checkoutProduct'); // Redirige a /checkout
     onClose();
   };
 

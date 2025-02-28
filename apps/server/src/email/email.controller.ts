@@ -1,5 +1,4 @@
-import { Controller, Post, Body, UploadedFiles, UseInterceptors } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { Controller, Post, Body } from '@nestjs/common';
 import { EmailService } from './email.service';
 
 @Controller('email')
@@ -16,5 +15,11 @@ export class EmailController {
   async submitOrder(@Body() orderData: any) {
     await this.emailService.sendOrderEmail(orderData);
     return { message: 'Orden de compra enviada exitosamente' };
+  }
+
+  @Post('service-order')
+  async submitServiceOrder(@Body() serviceOrderData: any) {
+    await this.emailService.sendServiceOrderEmail(serviceOrderData);
+    return { message: 'Orden de servicio enviada exitosamente' };
   }
 }

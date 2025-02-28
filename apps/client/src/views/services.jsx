@@ -1,24 +1,22 @@
-import { useRef } from 'react';
 import {
 	Box,
 	Flex,
 	useColorModeValue,
 	SimpleGrid
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import DividerText from '../components/dividerText';
 import generalServices from '../assets/generalServices';
 import specificServices from '../assets/specificServices';
 import PricingCard from '../components/pricingCard';
 import WorkshopCard from '../components/workshopCard';
-import ContactForm from '../components/contactForm';
-import ContactInfo from '../components/contactInfo';
 
 function Services() {
-	const contactRef = useRef(null);
+  	const navigate = useNavigate();
 
-	const scrollToContact = () => {
-		contactRef.current.scrollIntoView({ behavior: 'smooth' });
-	};
+	const scrollToContact = (service) => {
+		navigate('/checkoutService', { state: { service: service.title } });
+	  };
 
 	return (
 		<Flex
@@ -27,7 +25,8 @@ function Services() {
 			justify={'center'}
 			direction="column"
 			bg={useColorModeValue('#0000', '#0000')}
-			py={10}>
+			py={10}
+		>
 			<Box maxW="7xl" mx="auto" px={[4, 6, 8]}>			
 				<DividerText
 					title={"Servicios de Mantención"}
@@ -74,21 +73,6 @@ function Services() {
 			<Box maxW="3xl" py="5" mx="auto" px={[4, 6, 8]}>
 				<DividerText title={"Taller de Ciclismo"} />
 				<WorkshopCard />
-			</Box>
-			<Box py="10" mx="auto" ref={contactRef}>
-				<DividerText
-					title={"¡Agendemos Ahora mismo!"}
-					subtitle={"Un vez identificado el servicio que necesitas para tu bicicleta, contáctanos y te responderemos a la brevedad."}
-				/>
-				<SimpleGrid
-					py="10"
-					columns={[1, 1, 2]}
-					gap={[8, 6, 8]}
-					alignItems="start"
-				>
-					<ContactForm />
-					<ContactInfo />
-				</SimpleGrid>
 			</Box>
 		</Flex>
 	);

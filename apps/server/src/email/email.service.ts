@@ -50,4 +50,23 @@ export class EmailService {
 
     return this.transporter.sendMail(emailOptions);
   }
+
+  async sendServiceOrderEmail(serviceOrderData: any) {
+    const emailOptions = {
+      from: serviceOrderData.email,
+      to: this.configService.get<string>('EMAIL_USER'),
+      subject: `Nueva orden de servicio de ${serviceOrderData.name}`,
+      text: `
+        Nombre: ${serviceOrderData.name}
+        Dirección: ${serviceOrderData.address}
+        Email: ${serviceOrderData.email}
+        Teléfono: ${serviceOrderData.phone}
+        Servicio: ${serviceOrderData.service}
+        Comentarios: ${serviceOrderData.comments || 'No hay comentarios adicionales.'}
+        Total: $${serviceOrderData.totalPrice}
+      `,
+    };
+
+    return this.transporter.sendMail(emailOptions);
+  }
 }
