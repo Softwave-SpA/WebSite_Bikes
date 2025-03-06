@@ -64,7 +64,7 @@ const ProductForm = ({ onProductUpdated }) => {
     productData.append("caracteristicas", JSON.stringify(formData.caracteristicas));
 
     try {
-      const response = await axios.post("http://localhost:3000/server/products", productData, {
+      const response = await axios.post("/server/products", productData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       
