@@ -15,7 +15,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     // Sirve el frontend en /app
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../', 'client/dist'),
-      serveRoot: '/app', // Sirve el frontend en esta ruta
     }),
     // Sirve las imágenes en /uploads
     ServeStaticModule.forRoot({
