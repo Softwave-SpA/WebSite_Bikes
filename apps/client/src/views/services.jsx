@@ -16,7 +16,7 @@ function Services() {
 
 	const scrollToContact = (service) => {
 		navigate('/checkoutService', { state: { service: service.title } });
-	  };
+	};
 
 	return (
 		<Flex

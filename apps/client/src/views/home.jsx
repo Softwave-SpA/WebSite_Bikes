@@ -7,8 +7,8 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CaptionCarousel from '../components/carrusel.jsx';
-// import products from '../assets/ej_products2.jsx';
 import DividerBar from '../components/dividerBar.jsx';
 import generalServices from '../assets/generalServices.jsx';
 import PricingCard from '../components/pricingCard.jsx';
@@ -18,7 +18,12 @@ import axios from 'axios';
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const toast = useToast();
+
+  const scrollToContact = (service) => {
+		navigate('/checkoutService', { state: { service: service.title } });
+	};
 
   const fetchProducts = async () => {
     try {
@@ -96,6 +101,7 @@ function Home() {
                 title={service.title}
                 price={service.price}
                 features={service.features}
+                onScheduleClick={scrollToContact}
               />
             ))}
           </SimpleGrid>
