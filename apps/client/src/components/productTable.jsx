@@ -50,8 +50,14 @@ const ProductTable = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get('/server/products');
-      setProducts(response.data);
-      setFilteredProducts(response.data);
+      if (Array.isArray(response.data)) {
+        setProducts(response.data);
+        setFilteredProducts(response.data);
+      } else {
+        console.error("La respuesta no es un array:", response.data);
+        setProducts([]); // Asegúrate de que products sea un array vacío
+        setFilteredProducts([]);
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
       toast({

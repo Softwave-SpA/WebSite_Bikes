@@ -34,7 +34,13 @@ export default function ProductDetails() {
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`/server/products/${id}`);
-      setProduct(response.data);
+      console.log(response.data);
+      if (Array.isArray(response.data)) {
+        setProduct(response.data);
+      } else {
+        console.error("La respuesta no es un array:", response.data);
+        setProduct([]); // Asegúrate de que products sea un array vacío
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
       toast({
