@@ -9,7 +9,11 @@ async function bootstrap() {
   app.setGlobalPrefix('/server');
   
   app.enableCors({
-    origin: 'http://200.35.159.55', // Puedes ajustar este valor a tu dominio front-end
+    origin: [ 
+      'http://200.35.159.55',
+      'http://sprintpits.cl',
+      'http://www.sprintpits.cl'
+    ],
     methods: 'GET,POST,PUT,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
   });
