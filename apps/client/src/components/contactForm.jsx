@@ -42,7 +42,7 @@ const ContactForm = () => {
       formDataToSend.append('asunto', formData.asunto);
       formDataToSend.append('comentarios', formData.comentarios);
   
-      await axios.post('http://localhost:3000/server/email/contact', formDataToSend, {
+      await axios.post('http://200.35.159.55/server/email/contact', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

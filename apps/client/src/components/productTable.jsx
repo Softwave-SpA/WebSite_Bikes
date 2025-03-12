@@ -49,7 +49,7 @@ const ProductTable = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/server/products');
+      const response = await axios.get('http://200.35.159.55/server/products');
       if (Array.isArray(response.data)) {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -78,7 +78,7 @@ const ProductTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/server/products/${id}`);
+      await axios.delete(`http://200.35.159.55/server/products/${id}`);
       toast({
         title: 'Producto eliminado',
         description: 'El producto ha sido eliminado correctamente.',
@@ -243,7 +243,7 @@ const ProductTable = () => {
             <Tr key={product._id}>
               <Td>
                 <Image
-                  src={`http://localhost:3000/uploads/${product.imagen}`}
+                  src={`http://200.35.159.55/uploads/${product.imagen}`}
                   alt={product.nombre}
                   boxSize="100px"
                   objectFit="cover"
