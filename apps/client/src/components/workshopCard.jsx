@@ -1,8 +1,6 @@
 // WorkshopCard.js
 import React from 'react';
-import { Box, Heading, List, ListItem } from '@chakra-ui/react';
-
-
+import { Box, Heading, List, ListItem } from '@chakra-ui/react'; 
 
 const WorkshopCard = () => {
   const workshop = {

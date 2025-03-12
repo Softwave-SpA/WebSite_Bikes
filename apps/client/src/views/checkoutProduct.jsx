@@ -59,7 +59,7 @@ const CheckoutProduct = () => {
     };
 
     try {
-      const response = await axios.post('http://200.35.159.55/server/email/order', orderData);
+      const response = await axios.post('http://200.35.159.55:3000/server/email/order', orderData);
       toast({
         title: 'Orden enviada',
         description: 'Tu orden ha sido enviada exitosamente.',

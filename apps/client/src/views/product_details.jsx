@@ -33,7 +33,7 @@ export default function ProductDetails() {
   // Función para obtener los productos
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`http://200.35.159.55/server/products/${id}`);
+      const response = await axios.get(`http://200.35.159.55:3000/server/products/${id}`);
       console.log(response.data);
       if (Array.isArray(response.data)) {
         setProduct(response.data);
@@ -102,7 +102,7 @@ export default function ProductDetails() {
         <Flex justify="center">
           <Image
             rounded="lg"
-            src={`http://200.35.159.55/uploads/${product.imagen}`}
+            src={`http://200.35.159.55:3000/uploads/${product.imagen}`}
             alt={product.nombre}
             boxSize={{ base: '100%', sm: '400px', lg: '500px' }}
             objectFit="cover"

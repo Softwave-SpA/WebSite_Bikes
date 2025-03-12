@@ -27,7 +27,7 @@ function Home() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://200.35.159.55/server/products');
+      const response = await axios.get('http://200.35.159.55:3000/server/products');
       console.log(response.data);
       if (Array.isArray(response.data)) {
         setProducts(response.data);

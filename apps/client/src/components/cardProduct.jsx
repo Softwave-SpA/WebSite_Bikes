@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
     Flex,
     Box,
@@ -28,7 +27,7 @@ function ProductCard({ product }) {
       >
       <Link to={productDetailPath}>
         <Image
-          src={`http://200.35.159.55/uploads/${product.imagen}`}
+          src={`http://200.35.159.55:3000/uploads/${product.imagen}`}
           alt={`Imagen de ${product.nombre}`}
           roundedTop="lg"
           objectFit="cover"
