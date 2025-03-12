@@ -49,7 +49,7 @@ const ProductTable = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('/server/products');
+      const response = await axios.get('http://localhost:3000/server/products');
       if (Array.isArray(response.data)) {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -78,7 +78,7 @@ const ProductTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/server/products/${id}`);
+      await axios.delete(`http://localhost:3000/server/products/${id}`);
       toast({
         title: 'Producto eliminado',
         description: 'El producto ha sido eliminado correctamente.',
@@ -170,7 +170,7 @@ const ProductTable = () => {
             <ModalOverlay />
             <ModalContent>
               <ModalHeader>Crea un Producto</ModalHeader>
-              <ModalCloseButton onClick={handleClose} />
+              <ModalCloseButton />
               <ModalBody>
                 <ProductForm onProductUpdated={handleClose}/>
               </ModalBody>
@@ -182,7 +182,7 @@ const ProductTable = () => {
             <ModalOverlay />
             <ModalContent>
               <ModalHeader>Edita un Producto</ModalHeader>
-              <ModalCloseButton onClick={handleClose} />
+              <ModalCloseButton />
               <ModalBody>
                 <ProductEditForm 
                   product={editingProduct} 
@@ -236,7 +236,8 @@ const ProductTable = () => {
                 </Flex>
               </Th>
             ))}
-          </Tr>        </Thead>
+          </Tr>        
+        </Thead>
         <Tbody>
           {filteredProducts.map((product) => (
             <Tr key={product._id}>

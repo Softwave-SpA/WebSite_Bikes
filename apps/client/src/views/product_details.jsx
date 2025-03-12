@@ -33,7 +33,7 @@ export default function ProductDetails() {
   // Función para obtener los productos
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`/server/products/${id}`);
+      const response = await axios.get(`http://localhost:3000/server/products/${id}`);
       console.log(response.data);
       if (Array.isArray(response.data)) {
         setProduct(response.data);

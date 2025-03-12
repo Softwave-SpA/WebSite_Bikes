@@ -12,7 +12,7 @@ import CaptionCarousel from '../components/carrusel.jsx';
 import DividerBar from '../components/dividerBar.jsx';
 import generalServices from '../assets/generalServices.jsx';
 import PricingCard from '../components/pricingCard.jsx';
-import ProductCard from '../components/card2.jsx';
+import ProductCard from '../components/cardProduct.jsx';
 import axios from 'axios';
 
 function Home() {
@@ -27,7 +27,7 @@ function Home() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('/server/products');
+      const response = await axios.get('http://localhost:3000/server/products');
       console.log(response.data);
       if (Array.isArray(response.data)) {
         setProducts(response.data);

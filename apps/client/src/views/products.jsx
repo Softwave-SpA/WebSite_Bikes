@@ -15,7 +15,7 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import DividerText from '../components/dividerText';
-import ProductCard from '../components/card2';
+import ProductCard from '../components/cardProduct';
 import axios from 'axios';
 
 function Products() {
@@ -30,7 +30,7 @@ function Products() {
   // Función para obtener los productos
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('/server/products');
+      const response = await axios.get('http://localhost:3000/server/products');
       console.log(response.data);
       if (Array.isArray(response.data)) {
         setProducts(response.data);

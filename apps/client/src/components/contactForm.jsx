@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -42,7 +42,7 @@ const ContactForm = () => {
       formDataToSend.append('asunto', formData.asunto);
       formDataToSend.append('comentarios', formData.comentarios);
   
-      await axios.post('/server/email/contact', formDataToSend, {
+      await axios.post('http://localhost:3000/server/email/contact', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

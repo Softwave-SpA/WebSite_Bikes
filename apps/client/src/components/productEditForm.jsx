@@ -74,7 +74,7 @@ const ProductEditForm = ({ product, onProductUpdated }) => {
     e.preventDefault();
 
     try {
-      await axios.put(`/server/products/${product._id}`, formData);
+      await axios.put(`http://localhost:3000/server/products/${product._id}`, formData);
 
       toast({
         title: "Producto actualizado",
