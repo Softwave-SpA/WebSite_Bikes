@@ -32,7 +32,6 @@ function Products() {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(`${API_URL}/server/products`);
-      console.log(response.data);
       if (Array.isArray(response.data)) {
         setProducts(response.data);
       } else {

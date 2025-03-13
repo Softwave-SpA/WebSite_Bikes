@@ -23,7 +23,6 @@ export class ProductsService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
-    console.log(updateProductDto);
     return this.productModel.findByIdAndUpdate(id, updateProductDto).exec();
   }
 

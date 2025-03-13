@@ -32,8 +32,8 @@ function ProductCard({ product }) {
           alt={`Imagen de ${product.nombre}`}
           roundedTop="lg"
           objectFit="cover"
-          boxSize="100%"
-          height={'230px'}
+            boxSize="100%"
+            height={'230px'}
           mt={-12}
         />
       </Link>

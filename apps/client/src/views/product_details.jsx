@@ -35,12 +35,11 @@ export default function ProductDetails() {
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`${API_URL}/server/products/${id}`);
-      console.log(response.data);
-      if (Array.isArray(response.data)) {
-        setProduct(response.data);
+      if (response.data) {
+        setProduct(response.data); // Asignar directamente el objeto producto
       } else {
-        console.error("La respuesta no es un array:", response.data);
-        setProduct([]); // Asegúrate de que products sea un array vacío
+        console.error("No se encontró el producto:", response.data);
+        setProduct(null); // O un estado inicial adecuado
       }
     } catch (error) {
       console.error("Error fetching products:", error);

@@ -76,7 +76,6 @@ const ProductForm = ({ onProductUpdated }) => {
         duration: 5000,
         isClosable: true,
       });
-      console.log(response.data);
       onProductUpdated(formData);
     } catch (error) {
       console.error(error);
