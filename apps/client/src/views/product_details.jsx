@@ -20,6 +20,7 @@ import { MdLocalShipping, MdAddShoppingCart } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import CartModal from '../components/cartModal';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 export default function ProductDetails() {
   // const product = products.find((product) => product.id.toString() === id);
@@ -33,7 +34,7 @@ export default function ProductDetails() {
   // Función para obtener los productos
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`http://200.35.159.55:3000/server/products/${id}`);
+      const response = await axios.get(`${API_URL}/server/products/${id}`);
       console.log(response.data);
       if (Array.isArray(response.data)) {
         setProduct(response.data);
@@ -102,7 +103,7 @@ export default function ProductDetails() {
         <Flex justify="center">
           <Image
             rounded="lg"
-            src={`http://200.35.159.55:3000/uploads/${product.imagen}`}
+            src={`${API_URL}/uploads/${product.imagen}`}
             alt={product.nombre}
             boxSize={{ base: '100%', sm: '400px', lg: '500px' }}
             objectFit="cover"

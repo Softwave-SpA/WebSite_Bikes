@@ -13,6 +13,7 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { API_URL } from "../config";
 
 const ProductForm = ({ onProductUpdated }) => {
   const [formData, setFormData] = useState({
@@ -64,7 +65,7 @@ const ProductForm = ({ onProductUpdated }) => {
     productData.append("caracteristicas", JSON.stringify(formData.caracteristicas));
 
     try {
-      const response = await axios.post("http://200.35.159.55:3000/server/products", productData, {
+      const response = await axios.post(`${API_URL}/server/products`, productData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       

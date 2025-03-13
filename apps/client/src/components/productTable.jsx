@@ -27,6 +27,7 @@ import ProductForm from './productForm';
 import ProductEditForm from './productEditForm';
 import { BsBoxArrowUpRight, BsFillTrashFill, BsArrowUp, BsArrowDown } from "react-icons/bs";
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const ProductTable = () => {
   const [products, setProducts] = useState([]);
@@ -49,7 +50,7 @@ const ProductTable = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://200.35.159.55:3000/server/products');
+      const response = await axios.get(`${API_URL}/server/products`);
       if (Array.isArray(response.data)) {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -78,7 +79,7 @@ const ProductTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://200.35.159.55:3000/server/products/${id}`);
+      await axios.delete(`${API_URL}/server/products/${id}`);
       toast({
         title: 'Producto eliminado',
         description: 'El producto ha sido eliminado correctamente.',
@@ -243,7 +244,7 @@ const ProductTable = () => {
             <Tr key={product._id}>
               <Td>
                 <Image
-                  src={`http://200.35.159.55:3000/uploads/${product.imagen}`}
+                  src={`${API_URL}/uploads/${product.imagen}`}
                   alt={product.nombre}
                   boxSize="100px"
                   objectFit="cover"

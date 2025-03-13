@@ -10,6 +10,7 @@ import {
   } from '@chakra-ui/react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { API_URL } from '../config';
 
 function ProductCard({ product }) {
   const productDetailPath = `/products/${product._id}`;
@@ -27,7 +28,7 @@ function ProductCard({ product }) {
       >
       <Link to={productDetailPath}>
         <Image
-          src={`http://200.35.159.55:3000/uploads/${product.imagen}`}
+          src={`${API_URL}/uploads/${product.imagen}`}
           alt={`Imagen de ${product.nombre}`}
           roundedTop="lg"
           objectFit="cover"

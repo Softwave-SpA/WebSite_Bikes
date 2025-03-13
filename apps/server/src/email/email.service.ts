@@ -17,10 +17,11 @@ export class EmailService {
   }
 
   async sendContactEmail(formData: any) {
-    const emailOptions = {
+    // Correo al cliente
+    const emailToClient = {
       from: formData.correo,
       to: this.configService.get<string>('EMAIL_USER'),
-      subject: `Nuevo coreo de ${formData.nombre}`,
+      subject: `Nuevo correo de ${formData.nombre}`,
       text: `
         Nombre: ${formData.nombre}
         Teléfono: ${formData.telefono}
@@ -29,11 +30,34 @@ export class EmailService {
       `,
     };
 
-    return this.transporter.sendMail(emailOptions);
+    // Correo de confirmación al usuario
+    const emailToUser = {
+      from: this.configService.get<string>('EMAIL_USER'),
+      to: formData.correo,
+      subject: `Confirmación de contacto - ${formData.nombre}`,
+      text: `
+        Hola ${formData.nombre},
+
+        Gracias por contactarnos. Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.
+
+        Detalles de tu mensaje:
+        - Nombre: ${formData.nombre}
+        - Teléfono: ${formData.telefono}
+        - Asunto: ${formData.asunto}
+        - Comentarios: ${formData.comentarios}
+
+        Saludos,
+        El equipo de Sprint Pits
+      `,
+    };
+
+    await this.transporter.sendMail(emailToClient);
+    return this.transporter.sendMail(emailToUser);
   }
 
   async sendOrderEmail(orderData: any) {
-    const emailOptions = {
+    // Correo al cliente
+    const emailToClient = {
       from: orderData.email,
       to: this.configService.get<string>('EMAIL_USER'),
       subject: `Nueva orden de compra de ${orderData.name}`,
@@ -48,11 +72,33 @@ export class EmailService {
       `,
     };
 
-    return this.transporter.sendMail(emailOptions);
+    // Correo de confirmación al usuario
+    const emailToUser = {
+      from: this.configService.get<string>('EMAIL_USER'),
+      to: orderData.email,
+      subject: `Confirmación de orden de compra - ${orderData.name}`,
+      text: `
+        Hola ${orderData.name},
+
+        Gracias por tu compra. Hemos recibido tu orden y la estamos procesando.
+
+        Detalles de tu orden:
+        - Productos:
+        ${orderData.cartItems.map((item) => `- ${item.nombre}: Cantidad: ${item.quantity}, Subtotal: $${item.precio}`).join('\n')}
+        - Total: $${orderData.totalPrice}
+
+        Saludos,
+        El equipo de Sprint Pits
+      `,
+    };
+
+    await this.transporter.sendMail(emailToClient);
+    return this.transporter.sendMail(emailToUser);
   }
 
   async sendServiceOrderEmail(serviceOrderData: any) {
-    const emailOptions = {
+    // Correo al cliente
+    const emailToClient = {
       from: serviceOrderData.email,
       to: this.configService.get<string>('EMAIL_USER'),
       subject: `Nueva orden de servicio de ${serviceOrderData.name}`,
@@ -67,6 +113,27 @@ export class EmailService {
       `,
     };
 
-    return this.transporter.sendMail(emailOptions);
+    // Correo de confirmación al usuario
+    const emailToUser = {
+      from: this.configService.get<string>('EMAIL_USER'),
+      to: serviceOrderData.email,
+      subject: `Confirmación de orden de servicio - ${serviceOrderData.name}`,
+      text: `
+        Hola ${serviceOrderData.name},
+
+        Gracias por solicitar nuestro servicio. Hemos recibido tu orden y la estamos procesando.
+
+        Detalles de tu orden:
+        - Servicio: ${serviceOrderData.service}
+        - Comentarios: ${serviceOrderData.comments || 'No hay comentarios adicionales.'}
+        - Total: $${serviceOrderData.totalPrice}
+
+        Saludos,
+        El equipo de Sprint Pits
+      `,
+    };
+
+    await this.transporter.sendMail(emailToClient);
+    return this.transporter.sendMail(emailToUser);
   }
 }

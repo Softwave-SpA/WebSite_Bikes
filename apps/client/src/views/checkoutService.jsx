@@ -21,6 +21,7 @@ import {
 import DividerText from '../components/dividerText';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { API_URL } from '../config';
 
 const CheckoutService = () => {
   const location = useLocation();
@@ -62,7 +63,7 @@ const CheckoutService = () => {
     };
 
     try {
-      const response = await axios.post('http://200.35.159.55:3000/server/email/service-order', orderData);
+      const response = await axios.post(`${API_URL}/server/email/service-order`, orderData);
       toast({
         title: 'Orden enviada',
         description: 'Tu orden de servicio ha sido enviada exitosamente.',

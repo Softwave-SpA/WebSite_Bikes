@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API_URL } from "../config";
 import {
   Box,
   Button,
@@ -42,7 +43,7 @@ const ContactForm = () => {
       formDataToSend.append('asunto', formData.asunto);
       formDataToSend.append('comentarios', formData.comentarios);
   
-      await axios.post('http://200.35.159.55:3000/server/email/contact', formDataToSend, {
+      await axios.post(`${API_URL}/server/email/contact`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

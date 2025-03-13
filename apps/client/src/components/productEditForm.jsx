@@ -13,6 +13,7 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { API_URL } from "../config";
 
 const ProductEditForm = ({ product, onProductUpdated }) => {
   const [formData, setFormData] = useState({
@@ -74,7 +75,7 @@ const ProductEditForm = ({ product, onProductUpdated }) => {
     e.preventDefault();
 
     try {
-      await axios.put(`http://200.35.159.55:3000/server/products/${product._id}`, formData);
+      await axios.put(`${API_URL}/server/products/${product._id}`, formData);
 
       toast({
         title: "Producto actualizado",

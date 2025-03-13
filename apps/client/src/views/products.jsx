@@ -17,6 +17,7 @@ import {
 import DividerText from '../components/dividerText';
 import ProductCard from '../components/cardProduct';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 function Products() {
   // Hooks en el nivel superior
@@ -30,7 +31,7 @@ function Products() {
   // Función para obtener los productos
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://200.35.159.55:3000/server/products');
+      const response = await axios.get(`${API_URL}/server/products`);
       console.log(response.data);
       if (Array.isArray(response.data)) {
         setProducts(response.data);
