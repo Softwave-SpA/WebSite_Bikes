@@ -8,14 +8,45 @@ import {
   Image,
   useDisclosure,
   useColorModeValue,
+  Button,
+  Text,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logoImage from '../assets/SprintPits_Logo.jpg';
 import letraImage from '../assets/SprintPits_Letra.png';
+import { useEffect, useState } from 'react';
 
 export default function NavBarA() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error(error);
+        navigate('/admin/login');
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
+
+  // Función para manejar el cierre de sesión
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Elimina el token
+    localStorage.removeItem('username'); // Elimina el nombre de usuario
+    setIsLoggedIn(false); // Actualiza el estado
+    navigate('/admin/login'); // Redirige al usuario a la página de login
+  };
 
   return (
     <>
@@ -42,6 +73,38 @@ export default function NavBarA() {
             <Link to="/admin/dashboard">
               <Image src={letraImage} alt="Logo" width="160px" height="auto" objectFit="contain" />
             </Link>
+          </HStack>
+
+          {/* Botón de inicio/cierre de sesión */}
+          <HStack spacing={4}>
+            {/* {isLoggedIn && (
+              <>
+                <Text color="white" fontSize="sm">
+                  Bienvenido, {localStorage.getItem('username')}
+                </Text>
+                <Button colorScheme="red" size="sm" onClick={handleLogout}>
+                  Cerrar sesión
+                </Button>
+              </>
+            )} */}
+            {isLoggedIn ? (
+              <>
+                <Text color="white" fontSize="sm">
+                  Bienvenido, {localStorage.getItem('username')}
+                </Text>
+                <Button colorScheme="red" size="sm" onClick={handleLogout}>
+                  Cerrar sesión
+                </Button>
+              </>
+            ) : (
+              <Button
+                colorScheme="blue"
+                size="sm"
+                onClick={() => navigate('/')} // Redirige al usuario a la página de login
+              >
+                Voler a Sprint Pits
+              </Button>
+            )}
           </HStack>
         </Flex>
       </Box>
