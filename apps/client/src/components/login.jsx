@@ -5,6 +5,7 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from "../config";
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -27,7 +28,7 @@ export default function Login() {
   const handleLogin = async () => {
     setLoading(true); // Muestra el estado de carga
     try {
-      const response = await axios.post('/server/auth/login', formData);
+      const response = await axios.post(`${API_URL}/server/auth/login`, formData);
       localStorage.setItem('token', response.data.access_token);
       localStorage.setItem('username', response.data.username);
       console.log(response.data.username);
