@@ -13,6 +13,8 @@ async function bootstrap() {
       'http://200.35.159.55',
       'http://sprintpits.cl',
       'http://www.sprintpits.cl',
+      'https://sprintpits.cl',
+      'https://www.sprintpits.cl',
       'http://localhost:5173'
     ],
     methods: 'GET,POST,PUT,DELETE,OPTIONS',
