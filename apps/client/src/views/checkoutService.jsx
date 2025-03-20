@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -19,12 +19,15 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import DividerText from '../components/dividerText';
+import ReCAPTCHA from 'react-google-recaptcha';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { API_URL } from '../config';
 
 const CheckoutService = () => {
   const location = useLocation();
+  const [isSending, setIsSending] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     address: '',
@@ -53,6 +56,13 @@ const CheckoutService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!captchaValue) {
+      alert('Por favor, completa el reCAPTCHA');
+      return;
+    }
+
+    if (isSending) return; // Evita múltiples envíos
+    setIsSending(true);
 
     const selectedService = services.find((s) => s.title === formData.service);
     const totalPrice = selectedService ? selectedService.price : 0;
@@ -63,7 +73,7 @@ const CheckoutService = () => {
     };
 
     try {
-      const response = await axios.post(`${API_URL}/server/email/service-order`, orderData);
+      const response = await axios.post(`${API_URL}/server/email/service-order`, orderData, { captcha: captchaValue});
       toast({
         title: 'Orden enviada',
         description: 'Tu orden de servicio ha sido enviada exitosamente.',
@@ -89,6 +99,8 @@ const CheckoutService = () => {
         duration: 5000,
         isClosable: true,
       });
+    } finally {
+      setIsSending(false); // Habilita el botón nuevamente
     }
   };
 
@@ -203,8 +215,14 @@ const CheckoutService = () => {
                 </HStack>
               </Stack>
             </Box>
-            <Button colorScheme="blue" size="lg" w="full" onClick={handleSubmit}>
-              Agendar
+            
+            <ReCAPTCHA
+              sitekey="6LfRx_oqAAAAAPv5geEl5qXNu3Bi_1uRxivWKAXX"
+              onChange={(value) => setCaptchaValue(value)}
+            />
+
+            <Button disabled={isSending} colorScheme="blue" size="lg" w="full" onClick={handleSubmit}>
+              {isSending ? 'Enviando...' : 'Agendar'}
             </Button>
           </VStack>
         </GridItem>

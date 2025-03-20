@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
+import ReCAPTCHA from 'react-google-recaptcha';
 import {
   Box,
   Button,
@@ -16,6 +17,8 @@ import {
 } from "@chakra-ui/react";
 
 const ContactForm = () => {
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
     correo: "",
@@ -34,7 +37,15 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    if (!captchaValue) {
+      alert('Por favor, completa el reCAPTCHA');
+      return;
+    }
+
+    if (isSending) return; // Evita múltiples envíos
+    setIsSending(true);
+
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('nombre', formData.nombre);
@@ -47,6 +58,7 @@ const ContactForm = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        captcha: captchaValue,
       });
 
       toast({
@@ -65,6 +77,8 @@ const ContactForm = () => {
         duration: 5000,
         isClosable: true,
       });
+    } finally {
+      setIsSending(false); // Habilita el botón nuevamente
     }
   };
 
@@ -135,8 +149,13 @@ const ContactForm = () => {
             />
           </FormControl>
 
-          <Button type="submit" colorScheme="teal" size="lg" w="full">
-            Enviar
+          <ReCAPTCHA
+            sitekey="6LfRx_oqAAAAAPv5geEl5qXNu3Bi_1uRxivWKAXX"
+            onChange={(value) => setCaptchaValue(value)}
+          />
+
+          <Button disabled={isSending} type="submit" colorScheme="teal" size="lg" w="full">
+            {isSending ? 'Enviando...' : 'Enviar'}
           </Button>
         </Stack>
       </form>

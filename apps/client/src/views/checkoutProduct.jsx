@@ -17,6 +17,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import DividerText from '../components/dividerText';
+import ReCAPTCHA from 'react-google-recaptcha';
 import axios from 'axios';
 import { API_URL } from '../config';
 
@@ -28,6 +29,8 @@ const CheckoutProduct = () => {
     phone: '',
   });
   const [cartItems, setCartItems] = useState([]);
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const [isSending, setIsSending] = useState(false);
   const shippingCost = 0; // Precio fijo de envío
   const toast = useToast();
 
@@ -45,6 +48,18 @@ const CheckoutProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (cartItems.length === 0) {
+      alert('El carrito está vacío');
+      return;
+    }
+
+    if (!captchaValue) {
+      alert('Por favor, completa el reCAPTCHA');
+      return;
+    }
+
+    if (isSending) return; // Evita múltiples envíos
+    setIsSending(true);
 
     // Calcular el total correctamente
     const totalPrice = cartItems.reduce((total, item) => {
@@ -60,7 +75,7 @@ const CheckoutProduct = () => {
     };
 
     try {
-      const response = await axios.post(`${API_URL}/server/email/order`, orderData);
+      const response = await axios.post(`${API_URL}/server/email/order`, orderData, { captcha: captchaValue});
       toast({
         title: 'Orden enviada',
         description: 'Tu orden ha sido enviada exitosamente.',
@@ -80,6 +95,8 @@ const CheckoutProduct = () => {
         duration: 5000,
         isClosable: true,
       });
+    } finally {
+      setIsSending(false); // Habilita el botón nuevamente
     }
   };
 
@@ -189,8 +206,12 @@ const CheckoutProduct = () => {
                 </HStack>
               </Stack>
             </Box>
-            <Button colorScheme="blue" size="lg" w="full" onClick={handleSubmit}>
-              Confirmar Compra
+            <ReCAPTCHA
+              sitekey="6LfRx_oqAAAAAPv5geEl5qXNu3Bi_1uRxivWKAXX"
+              onChange={(value) => setCaptchaValue(value)}
+            />
+            <Button disabled={isSending} colorScheme="blue" size="lg" w="full" onClick={handleSubmit}>
+              {isSending ? 'Enviando...' : 'Confirmar Compra'}
             </Button>
           </VStack>
         </GridItem>
