@@ -9,7 +9,7 @@ export class EmailController {
   @Post('contact')
   async submitContactForm(@Body() formData: any, captcha: string) {
     const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=TU_SECRET_KEY&response=${captcha}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=6LfRx_oqAAAAAFJsRaEAQj_ww6HosqPPfJFbazr4&response=${captcha}`
     );
   
     if (!response.data.success) {
@@ -23,7 +23,7 @@ export class EmailController {
   @Post('order')
   async submitOrder(@Body() orderData: any, captcha: string) {
     const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=TU_SECRET_KEY&response=${captcha}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=6LfRx_oqAAAAAFJsRaEAQj_ww6HosqPPfJFbazr4&response=${captcha}`
     );
   
     if (!response.data.success) {
@@ -37,7 +37,7 @@ export class EmailController {
   @Post('service-order')
   async submitServiceOrder(@Body() serviceOrderData: any, captcha: string) {
     const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=TU_SECRET_KEY&response=${captcha}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=6LfRx_oqAAAAAFJsRaEAQj_ww6HosqPPfJFbazr4&response=${captcha}`
     );
   
     if (!response.data.success) {
