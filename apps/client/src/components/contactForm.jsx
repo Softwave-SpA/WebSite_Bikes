@@ -53,9 +53,7 @@ const ContactForm = () => {
       formDataToSend.append('telefono', formData.telefono);
       formDataToSend.append('asunto', formData.asunto);
       formDataToSend.append('comentarios', formData.comentarios);
-      formDataToSend.append('captcha', captchaValue);
       
-      console.log(captchaValue);
       await axios.post(`${API_URL}/server/email/contact`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',

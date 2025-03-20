@@ -29,8 +29,8 @@ const CheckoutProduct = () => {
     phone: '',
   });
   const [cartItems, setCartItems] = useState([]);
-  const [captchaValue, setCaptchaValue] = useState(null);
   const [isSending, setIsSending] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
   const shippingCost = 0; // Precio fijo de envío
   const toast = useToast();
 
@@ -68,12 +68,10 @@ const CheckoutProduct = () => {
       return total + itemPrice * itemQuantity;
     }, 0) + shippingCost;
 
-    const captcha = captchaValue;
     const orderData = {
       ...formData,
       cartItems,
       totalPrice,
-      captcha,
     };
 
     try {
@@ -197,11 +195,6 @@ const CheckoutProduct = () => {
                     </Box>
                   );
                 })}
-                {/* <HStack justify="space-between">
-                  <Text>Envío</Text>
-                  <Text>${shippingCost.toFixed(2)}</Text>
-                </HStack>
-                <Divider /> */}
                 <HStack justify="space-between" fontWeight="bold">
                   <Text>Total</Text>
                   <Text>${totalPrice.toFixed(2)}</Text>

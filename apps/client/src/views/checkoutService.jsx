@@ -67,11 +67,9 @@ const CheckoutService = () => {
     const selectedService = services.find((s) => s.title === formData.service);
     const totalPrice = selectedService ? selectedService.price : 0;
 
-    const captcha = captchaValue;
     const orderData = {
       ...formData,
       totalPrice,
-      captcha,
     };
 
     try {
