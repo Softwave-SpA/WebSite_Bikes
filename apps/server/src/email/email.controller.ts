@@ -7,10 +7,10 @@ export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
   @Post('contact')
-  async submitContactForm(@Body() formData: any, captcha: string) {
-    console.log(captcha);
+  async submitContactForm(@Body() formData: any) {
+    console.log(formData.captcha);
     const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${captcha}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${formData.captcha}`
     );
   
     if (!response.data.success) {
@@ -22,10 +22,10 @@ export class EmailController {
   }
 
   @Post('order')
-  async submitOrder(@Body() orderData: any, captcha: string) {
-    console.log(captcha);
+  async submitOrder(@Body() orderData: any) {
+    console.log(orderData.captcha);
     const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${captcha}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${orderData.captcha}`
     );
   
     if (!response.data.success) {
@@ -37,10 +37,10 @@ export class EmailController {
   }
 
   @Post('service-order')
-  async submitServiceOrder(@Body() serviceOrderData: any, captcha: string) {
-    console.log(captcha);
+  async submitServiceOrder(@Body() serviceOrderData: any) {
+    console.log(serviceOrderData.captcha);
     const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${captcha}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${serviceOrderData.captcha}`
     );
   
     if (!response.data.success) {
