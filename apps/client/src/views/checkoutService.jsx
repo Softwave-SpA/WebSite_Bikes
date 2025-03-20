@@ -67,13 +67,15 @@ const CheckoutService = () => {
     const selectedService = services.find((s) => s.title === formData.service);
     const totalPrice = selectedService ? selectedService.price : 0;
 
+    const captcha = captchaValue;
     const orderData = {
       ...formData,
       totalPrice,
+      captcha,
     };
 
     try {
-      const response = await axios.post(`${API_URL}/server/email/service-order`, orderData, { captcha: captchaValue});
+      const response = await axios.post(`${API_URL}/server/email/service-order`, orderData);
       toast({
         title: 'Orden enviada',
         description: 'Tu orden de servicio ha sido enviada exitosamente.',

@@ -68,14 +68,16 @@ const CheckoutProduct = () => {
       return total + itemPrice * itemQuantity;
     }, 0) + shippingCost;
 
+    const captcha = captchaValue;
     const orderData = {
       ...formData,
       cartItems,
       totalPrice,
+      captcha,
     };
 
     try {
-      const response = await axios.post(`${API_URL}/server/email/order`, orderData, { captcha: captchaValue});
+      const response = await axios.post(`${API_URL}/server/email/order`, orderData);
       toast({
         title: 'Orden enviada',
         description: 'Tu orden ha sido enviada exitosamente.',
