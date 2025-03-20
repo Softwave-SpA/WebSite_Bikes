@@ -12,6 +12,7 @@ export class EmailController {
     const response = await axios.post(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${formData.captcha}`
     );
+    console.log('Respuesta de Google reCAPTCHA:', response.data);
   
     if (!response.data.success) {
       throw new BadRequestException('reCAPTCHA no válido');
@@ -27,6 +28,7 @@ export class EmailController {
     const response = await axios.post(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${orderData.captcha}`
     );
+    console.log('Respuesta de Google reCAPTCHA:', response.data);
   
     if (!response.data.success) {
       throw new BadRequestException('reCAPTCHA no válido');
@@ -42,6 +44,7 @@ export class EmailController {
     const response = await axios.post(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${serviceOrderData.captcha}`
     );
+    console.log('Respuesta de Google reCAPTCHA:', response.data);
   
     if (!response.data.success) {
       throw new BadRequestException('reCAPTCHA no válido');
