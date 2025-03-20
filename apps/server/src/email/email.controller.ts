@@ -8,6 +8,7 @@ export class EmailController {
 
   @Post('contact')
   async submitContactForm(@Body() formData: any, captcha: string) {
+    console.log(captcha);
     const response = await axios.post(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${captcha}`
     );
@@ -22,6 +23,7 @@ export class EmailController {
 
   @Post('order')
   async submitOrder(@Body() orderData: any, captcha: string) {
+    console.log(captcha);
     const response = await axios.post(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${captcha}`
     );
@@ -36,6 +38,7 @@ export class EmailController {
 
   @Post('service-order')
   async submitServiceOrder(@Body() serviceOrderData: any, captcha: string) {
+    console.log(captcha);
     const response = await axios.post(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.KEY_CAPTCHA}&response=${captcha}`
     );
