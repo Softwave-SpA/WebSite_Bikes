@@ -61,8 +61,8 @@ const CheckoutService = () => {
       return;
     }
 
-    if (isSending) return; // Evita múltiples envíos
-    setIsSending(true);
+    // if (isSending) return; // Evita múltiples envíos
+    // setIsSending(true);
 
     const selectedService = services.find((s) => s.title === formData.service);
     const totalPrice = selectedService ? selectedService.price : 0;

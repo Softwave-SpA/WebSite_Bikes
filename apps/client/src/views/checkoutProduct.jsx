@@ -58,8 +58,8 @@ const CheckoutProduct = () => {
       return;
     }
 
-    if (isSending) return; // Evita múltiples envíos
-    setIsSending(true);
+    // if (isSending) return; // Evita múltiples envíos
+    // setIsSending(true);
 
     // Calcular el total correctamente
     const totalPrice = cartItems.reduce((total, item) => {

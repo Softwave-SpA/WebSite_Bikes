@@ -43,8 +43,8 @@ const ContactForm = () => {
       return;
     }
 
-    if (isSending) return; // Evita múltiples envíos
-    setIsSending(true);
+    // if (isSending) return; // Evita múltiples envíos
+    // setIsSending(true);
 
     try {
       const formDataToSend = new FormData();
