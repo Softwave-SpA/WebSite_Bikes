@@ -43,8 +43,8 @@ const ContactForm = () => {
       return;
     }
 
-    // if (isSending) return; // Evita múltiples envíos
-    // setIsSending(true);
+    if (isSending) return; // Evita múltiples envíos
+    setIsSending(true);
 
     try {
       const formDataToSend = new FormData();
@@ -56,7 +56,7 @@ const ContactForm = () => {
       
       await axios.post(`${API_URL}/server/email/contact`, formDataToSend, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
 
