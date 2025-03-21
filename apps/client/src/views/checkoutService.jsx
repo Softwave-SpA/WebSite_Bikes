@@ -57,12 +57,19 @@ const CheckoutService = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.service === '' || formData.service === 'Selecciona un servicio') {
+    if (
+      !formData.name ||
+      !formData.address ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.service ||
+      formData.service === 'Selecciona un servicio'
+    ) {
       toast({
         title: 'Error',
-        description: 'Por favor, selecciona un servicio válido.',
+        description: 'Por favor, completa todos los campos obligatorios.',
         status: 'error',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
       return;

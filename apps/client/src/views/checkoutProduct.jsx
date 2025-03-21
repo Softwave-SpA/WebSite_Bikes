@@ -48,6 +48,23 @@ const CheckoutProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      !formData.name ||
+      !formData.address ||
+      !formData.email ||
+      !formData.phone
+    ) {
+      toast({
+        title: 'Error',
+        description: 'Por favor, completa todos los campos obligatorios.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
     if (cartItems.length === 0) {
       alert('El carrito está vacío');
       return;

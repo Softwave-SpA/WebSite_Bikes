@@ -25,7 +25,6 @@ const ContactForm = () => {
     telefono: "",
     asunto: "Mantención: Básica",
     comentarios: "",
-    imagenes: null,
   });
 
   const toast = useToast();
@@ -37,6 +36,22 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      !formData.nombre ||
+      !formData.correo ||
+      !formData.telefono ||
+      !formData.asunto
+    ) {
+      toast({
+        title: 'Error',
+        description: 'Por favor, completa todos los campos obligatorios.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
 
     if (!captchaValue) {
       alert('Por favor, completa el reCAPTCHA');

@@ -42,20 +42,20 @@ export default function CaptionCarousel() {
       color: 'Black',
       color_oposite: 'White',
       image: accesorio_photo,
-    },
-    {
-      title: 'Descubre las Mejores Bicicletas del Año',
-      text: '',
-      color: 'Black',
-      color_oposite: 'White',
-      image: bicicleta_photo,
-    },
+    },    
     {
       title: 'Mantencion y reparacion de bicicletas',
       text: '',
       color: 'Black',
       color_oposite: 'White',
       image: reparacion_photo,
+    },
+    {
+      title: 'Descubre tu Bicicleta ideal',
+      text: '',
+      color: 'Black',
+      color_oposite: 'White',
+      image: bicicleta_photo,
     },
   ];
 
