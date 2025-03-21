@@ -31,7 +31,6 @@ export default function Login() {
       const response = await axios.post(`${API_URL}/server/auth/login`, formData);
       localStorage.setItem('token', response.data.access_token);
       localStorage.setItem('username', response.data.username);
-      console.log(response.data.username);
 
       toast({
         title: 'Inicio de sesión exitoso',

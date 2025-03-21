@@ -37,11 +37,11 @@ const CheckoutService = () => {
     comments: '',
   });
   const [services] = useState([
-    { title: 'Mantención Básica', price: 20000 },
-    { title: 'Mantención Media', price: 35000 },
-    { title: 'Mantención Full', price: 50000 },
-    { title: 'Mantención Fixie', price: 25000 },
-    { title: 'Mantención bicicleta de Triatlón', price: 40000 },
+    { title: 'Mantención Básica', price: 15000 },
+    { title: 'Mantención Media', price: 25000 },
+    { title: 'Mantención Full', price: 35000 },
+    { title: 'Mantención Fixie', price: 20000 },
+    { title: 'Mantención bicicleta de Triatlón', price: 55000 },
     { title: 'Taller de Ciclismo Urbano', price: 30000 },
   ]);
   const toast = useToast();

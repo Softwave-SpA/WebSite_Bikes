@@ -4,21 +4,17 @@ import {
   Flex,
   Avatar,
   HStack,
-  IconButton,
   Image,
-  useDisclosure,
   useColorModeValue,
   Button,
   Text,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import logoImage from '../assets/SprintPits_Logo.jpg';
 import letraImage from '../assets/SprintPits_Letra.png';
 import { useEffect, useState } from 'react';
 
 export default function NavBarA() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -60,13 +56,6 @@ export default function NavBarA() {
         boxShadow="md">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
-            <IconButton
-              size={'md'}
-              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-              aria-label={'Open Menu'}
-              display={{ md: 'none' }}
-              onClick={isOpen ? onClose : onOpen}
-            />
             <Link to="/admin/dashboard">
               <Avatar boxSize="60px" src={logoImage} />
             </Link>
@@ -77,16 +66,6 @@ export default function NavBarA() {
 
           {/* Botón de inicio/cierre de sesión */}
           <HStack spacing={4}>
-            {/* {isLoggedIn && (
-              <>
-                <Text color="white" fontSize="sm">
-                  Bienvenido, {localStorage.getItem('username')}
-                </Text>
-                <Button colorScheme="red" size="sm" onClick={handleLogout}>
-                  Cerrar sesión
-                </Button>
-              </>
-            )} */}
             {isLoggedIn ? (
               <>
                 <Text color="white" fontSize="sm">
@@ -102,7 +81,7 @@ export default function NavBarA() {
                 size="sm"
                 onClick={() => navigate('/')} // Redirige al usuario a la página de login
               >
-                Voler a Sprint Pits
+                Volver a Sprint Pits
               </Button>
             )}
           </HStack>
