@@ -18,13 +18,10 @@ import {
 } from '@chakra-ui/react';
 import { MdLocalShipping, MdAddShoppingCart } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
-import CartModal from '../components/cartModal';
 import axios from 'axios';
 import { API_URL } from '../config';
 
 export default function ProductDetails() {
-  // const product = products.find((product) => product.id.toString() === id);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
@@ -65,13 +62,59 @@ export default function ProductDetails() {
   }
 
   const addToCart = () => {
+    if (quantity > product.stock) {
+      toast({
+        title: "Stock insuficiente",
+        description: `No hay suficiente stock para ${product.nombre}. Stock disponible: ${product.stock}`,
+        status: "error",
+        duration: 2500,
+        isClosable: true,
+      });
+      return;
+    }
+
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({ ...product, quantity });
+    const existingProductIndex = cart.findIndex((item) => item._id === product._id);
+
+    if (existingProductIndex !== -1) {
+      const totalQuantity = cart[existingProductIndex].quantity + quantity;
+      if (totalQuantity > product.stock) {
+        toast({
+          title: "Stock insuficiente",
+          description: `No hay suficiente stock para ${product.nombre}. Stock disponible: ${product.stock}`,
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+        });
+        return;
+      }
+      cart[existingProductIndex].quantity += quantity;
+    } else {
+      cart.push({ ...product, quantity });
+    }
     localStorage.setItem('cart', JSON.stringify(cart));
-    setIsModalOpen(true);
+    toast({
+      title: "Producto añadido",
+      description: `Se ha añadido ${quantity} ${quantity === 1 ? 'unidad' : 'unidades'} de ${product.nombre} al carrito.`,
+      status: "success",
+      duration: 2500,
+      isClosable: true,
+    });
   };
 
-  // Mostrar spinner mientras se cargan los productos
+  const handleQuantityChange = (e) => {
+    const value = e.target.value;
+    if (value === '') {
+      setQuantity('');
+      return;
+    }
+  
+    const parsedValue = parseInt(value, 10);
+    if (!isNaN(parsedValue) && parsedValue >= 1) {
+      setQuantity(parsedValue);
+    }
+  };
+  
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
@@ -123,9 +166,8 @@ export default function ProductDetails() {
           <Box>
             <Heading fontSize={{ base: 'xl', md: '2xl' }} mb={2}>Características</Heading>
             <List spacing={2}>
-              <ListItem>
-                <strong>Categoría:</strong> {product.categoria}
-              </ListItem>
+              <ListItem> <strong>Categoría:</strong> {product.categoria} </ListItem>
+              <ListItem> <strong>Stock:</strong> {product.stock} </ListItem>
               {features.map((feature, index) => (
                 <ListItem key={index}>
                   <strong>{feature.clave}:</strong> {feature.valor}
@@ -139,8 +181,16 @@ export default function ProductDetails() {
             <Input
               type="number"
               value={quantity}
-              onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+              onChange={handleQuantityChange}
+              onBlur={() => {
+                // Si el valor está vacío, restablece a 1
+                if (quantity === '') {
+                  setQuantity(1);
+                }
+              }}
               width={20}
+              min={1}
+              max={product.stock}
             />
             <Button
               leftIcon={<MdAddShoppingCart />}
@@ -158,7 +208,6 @@ export default function ProductDetails() {
           </Stack>
         </Stack>
       </SimpleGrid>
-      <CartModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Container>
   );
 }

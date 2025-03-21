@@ -8,12 +8,57 @@ import {
     Tooltip,
     Center
   } from '@chakra-ui/react';
+import CartModal from '../components/cartModal';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { API_URL } from '../config';
+import { useState } from 'react';
 
 function ProductCard({ product }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const productDetailPath = `/products/${product._id}`;
+
+  const addToCart = () => {
+    if (quantity > product.stock) {
+      toast({
+        title: "Stock insuficiente",
+        description: `No hay suficiente stock para ${product.nombre}. Stock disponible: ${product.stock}`,
+        status: "error",
+        duration: 2500,
+        isClosable: true,
+      });
+      return;
+    }
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingProductIndex = cart.findIndex((item) => item._id === product._id);
+
+    if (existingProductIndex !== -1) {
+      const totalQuantity = cart[existingProductIndex].quantity + quantity;
+      if (totalQuantity > product.stock) {
+        toast({
+          title: "Stock insuficiente",
+          description: `No hay suficiente stock para ${product.nombre}. Stock disponible: ${product.stock}`,
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+        });
+        return;
+      }
+      cart[existingProductIndex].quantity += quantity;
+    } else {
+      cart.push({ ...product, quantity });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    toast({
+      title: "Producto añadido",
+      description: `Se ha añadido ${quantity} ${quantity === 1 ? 'unidad' : 'unidades'} de ${product.nombre} al carrito.`,
+      status: "success",
+      duration: 2500,
+      isClosable: true,
+    });
+  };
 
   return (
     <Center py={10}>
@@ -56,7 +101,7 @@ function ProductCard({ product }) {
               fontSize={'1.2em'}
             >
             <chakra.a href={'#'} display={'flex'}>
-              <Icon as={FiShoppingCart} h={7} w={7} alignSelf={'center'}/>
+              <Icon as={FiShoppingCart} h={7} w={7} alignSelf={'center'} onClick={addToCart}/>
             </chakra.a>
             </Tooltip>
           </Flex>
@@ -66,6 +111,7 @@ function ProductCard({ product }) {
           </Box>
         </Box>
       </Box>
+      <CartModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Center>
   );
 }

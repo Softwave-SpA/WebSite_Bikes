@@ -56,6 +56,18 @@ const CheckoutService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.service === '' || formData.service === 'Selecciona un servicio') {
+      toast({
+        title: 'Error',
+        description: 'Por favor, selecciona un servicio válido.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
     if (!captchaValue) {
       alert('Por favor, completa el reCAPTCHA');
       return;
@@ -81,7 +93,6 @@ const CheckoutService = () => {
         duration: 5000,
         isClosable: true,
       });
-      // Limpiar el formulario después de enviar la orden
       setFormData({
         name: '',
         address: '',
@@ -100,7 +111,7 @@ const CheckoutService = () => {
         isClosable: true,
       });
     } finally {
-      setIsSending(false); // Habilita el botón nuevamente
+      setIsSending(false);
     }
   };
 
