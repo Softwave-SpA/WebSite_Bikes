@@ -6,6 +6,7 @@ import {
     Icon,
     chakra,
     Tooltip,
+    useToast,
     Center
   } from '@chakra-ui/react';
 import CartModal from '../components/cartModal';
@@ -18,6 +19,7 @@ function ProductCard({ product }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const productDetailPath = `/products/${product._id}`;
+  const toast = useToast();
 
   const addToCart = () => {
     if (quantity > product.stock) {
